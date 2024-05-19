@@ -5,9 +5,7 @@ class DisplayInfor extends React.Component {
     isShowListUser: true,
   };
   handleShowHide = () => {
-    this.setState({
-      isShowListUser: !this.state.isShowListUser,
-    });
+    alert("me");
   };
   render() {
     const { listUser } = this.props;
@@ -22,9 +20,7 @@ class DisplayInfor extends React.Component {
               this.handleShowHide();
             }}
           >
-            {this.state.isShowListUser === true
-              ? "Hide list user"
-              : "Show list user"}
+            Hide List User:
           </span>
         </div>
         {this.state.isShowListUser && (
