@@ -6,17 +6,25 @@ class DisplayInfor extends React.Component {
     // === const listUser = this.props.listUser;
     //props=> viết tắt properties
     return (
-      //map() sẽ trả ra 1 mảng mới
       <div>
         {listUser.map((user) => {
+          console.log(user);
           return (
-            <div key={user.id}>
+            <div>
               <div>My name's {user.name}</div>
               <div>My age's {user.age}</div>
               <hr />
             </div>
           );
         })}
+        {/* <div>My name's {name}</div>
+        <div>My age's {age}</div>
+        <hr />
+        
+        <hr />
+        <div>My name's {name}</div>
+        <div>My age's {age}</div>
+        <hr /> */}
       </div>
     );
   }

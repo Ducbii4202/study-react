@@ -17,6 +17,14 @@ class DisplayInfor extends React.Component {
             </div>
           );
         })}
+        {/* <div>My name's {name}</div>
+        <div>My age's {age}</div>
+        <hr />
+        
+        <hr />
+        <div>My name's {name}</div>
+        <div>My age's {age}</div>
+        <hr /> */}
       </div>
     );
   }
