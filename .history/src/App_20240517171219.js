@@ -1,6 +1,5 @@
 import React from "react";
-import "./App.css";
-import MyComponent from "./components/MyComponent";
+import MyComponent from ".components/MyComponent";
 const App = () => {
   return (
     <div>
