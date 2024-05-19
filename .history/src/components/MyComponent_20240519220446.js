@@ -10,8 +10,8 @@ class MyComponent extends React.Component {
     return (
       <div>
         <UserInfor></UserInfor>
-        <br /> <br />
-        <DisplayInfor name="hoidanIT" age="24"></DisplayInfor>
+        <br />
+        <DisplayInfor></DisplayInfor>
       </div>
     );
   }
