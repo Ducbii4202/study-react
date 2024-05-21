@@ -17,7 +17,7 @@ class DisplayInfor extends React.Component {
     //props=> viết tắt properties
     return (
       //map() sẽ trả ra 1 mảng mới
-      <div className="display-infor-container">
+      <div className="idsplay-infor-container">
         <div>
           <span
             onClick={() => {

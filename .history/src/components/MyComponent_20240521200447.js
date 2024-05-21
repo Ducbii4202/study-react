@@ -16,7 +16,7 @@ class MyComponent extends React.Component {
   //... ( là copy mảng hoặc data mà ta có)
   handleAddNewUser = (userObj) => {
     console.log(userObj);
-    this.setState({ listUser: [userObj, ...this.state.listUser] });
+    this.setState({ listUser: [...this.state.listUser] });
   };
   render() {
     return (

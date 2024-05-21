@@ -13,17 +13,19 @@ class MyComponent extends React.Component {
       { id: 3, name: "Thang", age: "26", address: " Trang Boom" },
     ],
   };
-  //... ( là copy mảng hoặc data mà ta có)
-  handleAddNewUser = (userObj) => {
-    console.log(userObj);
-    this.setState({ listUser: [userObj, ...this.state.listUser] });
+
+  handleAddNewUser = () => {
+    alert("me");
   };
   render() {
     return (
       <div>
-        <AddUserInfor handleAddNewUser={this.handleAddNewUser}></AddUserInfor>
+        <AddUserInfor></AddUserInfor>
         <br /> <br />
-        <DisplayInfor listUser={this.state.listUser}></DisplayInfor>
+        <DisplayInfor
+          listUser={this.state.listUser}
+          handleAddNewUser={this.handleAddNewUser}
+        ></DisplayInfor>
       </div>
     );
   }

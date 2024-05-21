@@ -1,5 +1,4 @@
 import React from "react";
-import "./DisplayInfor.scss";
 
 class DisplayInfor extends React.Component {
   state = {
@@ -7,7 +6,6 @@ class DisplayInfor extends React.Component {
   };
   handleShowHide = () => {
     this.setState({
-      // ! = Toggle (on/off)
       isShowListUser: !this.state.isShowListUser,
     });
   };
@@ -17,7 +15,7 @@ class DisplayInfor extends React.Component {
     //props=> viết tắt properties
     return (
       //map() sẽ trả ra 1 mảng mới
-      <div className="display-infor-container">
+      <div>
         <div>
           <span
             onClick={() => {
