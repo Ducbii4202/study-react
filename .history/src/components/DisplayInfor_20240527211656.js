@@ -50,7 +50,7 @@ const DisplayInfor = (props) => {
         <span onClick={() => handleShowHideListUser()}>
           {isShowHideListUser === true ? "Hide list Users" : "Show list Users"}
         </span>
-      </div> 
+      </div>
       {isShowHideListUser && (
         <>
           {listUser.map((item) => {

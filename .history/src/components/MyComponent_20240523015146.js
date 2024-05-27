@@ -28,13 +28,13 @@ class MyComponent extends React.Component {
   };
   render() {
     return (
-     <>
+      <>
         <AddUserInfor handleAddNewUser={this.handleAddNewUser}></AddUserInfor>
         <br /> <br />
         <DisplayInfor
           listUser={this.state.listUser}
           handleDeleteUser={this.handleDeleteUser}
-        ></DisplayInfor>  
+        ></DisplayInfor>
       </>
     );
   }

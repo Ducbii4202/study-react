@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./DisplayInfor.scss";
-// Step 1: có kiểm soát Data phải dùng Stateful
+
 // class DisplayInfor extends React.Component {
 //   render() {
 //     const { listUser } = this.props;
@@ -37,21 +37,14 @@ import "./DisplayInfor.scss";
 //   }
 // }
 
-// Step 2: ko có trạng thái dùng Stateless
 const DisplayInfor = (props) => {
-  const { listUser } = props;
-  const [isShowHideListUser, setShowHideListUser] = useState(true);
-  const handleShowHideListUser = () => {
-    setShowHideListUser(!isShowHideListUser);
-  };
+  const { listUser } = this.props;
+  // === const listUser = this.props.listUser;
+  //props=> viết tắt properties
   return (
+    //map() sẽ trả ra 1 mảng mới
     <div className="display-infor-container">
-      <div>
-        <span onClick={() => handleShowHideListUser()}>
-          {isShowHideListUser === true ? "Hide list Users" : "Show list Users"}
-        </span>
-      </div> 
-      {isShowHideListUser && (
+      {true && (
         <>
           {listUser.map((item) => {
             return (
@@ -62,7 +55,7 @@ const DisplayInfor = (props) => {
                   <div>My address {item.address}</div>
                 </div>
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)}>
+                  <button onClick={() => this.props.handleDeleteUser(item.id)}>
                     Delete
                   </button>
                   <hr />

@@ -48,9 +48,9 @@ const DisplayInfor = (props) => {
     <div className="display-infor-container">
       <div>
         <span onClick={() => handleShowHideListUser()}>
-          {isShowHideListUser === true ? "Hide list Users" : "Show list Users"}
+          {isShowHideListUser === true ? "Hide list User" : "Show list User"}
         </span>
-      </div> 
+      </div>
       {isShowHideListUser && (
         <>
           {listUser.map((item) => {

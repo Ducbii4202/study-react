@@ -41,17 +41,12 @@ import "./DisplayInfor.scss";
 const DisplayInfor = (props) => {
   const { listUser } = props;
   const [isShowHideListUser, setShowHideListUser] = useState(true);
-  const handleShowHideListUser = () => {
-    setShowHideListUser(!isShowHideListUser);
-  };
   return (
     <div className="display-infor-container">
       <div>
-        <span onClick={() => handleShowHideListUser()}>
-          {isShowHideListUser === true ? "Hide list Users" : "Show list Users"}
-        </span>
-      </div> 
-      {isShowHideListUser && (
+        <span>Show list user</span>
+      </div>
+      {true && (
         <>
           {listUser.map((item) => {
             return (
