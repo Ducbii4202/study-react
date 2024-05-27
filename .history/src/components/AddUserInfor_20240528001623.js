@@ -58,39 +58,57 @@
 
 import React, { useState } from "react";
 
-const AddUserInfor = (props) => {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [age, setAge] = useState("");
+const AddUserInfor = () => {
+  const [data, setData] = useState({
+    name: "Bii",
+    address: "Xuan Hung",
+    age: 22,
+  });
 
   const hanldeOnChangeInput = (event) => {
-    setName(event.target.value);
+    setData({
+      name: event.target.value,
+    });
   };
   const hanldeOnChangeAge = (event) => {
-    setAge(event.target.value);
+    setData({
+      age: event.target.value,
+    });
   };
   const hanldeOnChangeAddress = (event) => {
-    setAddress(event.target.value);
+    setData({
+      address: event.target.value,
+    });
   };
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    props.handleAddNewUser({
+    this.props.handleAddNewUser({
       id: Math.floor(Math.random() * 100 + 1) + "-random",
-      name: name,
-      age: age,
-      address: address,
+      name: this.state.name,
+      age: this.state.age,
+      address: this.state.address,
     });
   };
   return (
     <div>
-      My name is {name} and I'm from {age}, I'm from {address}
-      <form onSubmit={(event) => handleOnSubmit(event)}>
+      My name is {this.state.name} and I'm from {this.state.age}, I'm from{" "}
+      {this.state.address}
+      <form onSubmit={(event) => this.handleOnSubmit(event)}>
         <label>Your Name:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeInput(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeInput(event)}
+        />
         <label>Your Age:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeAge(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeAge(event)}
+        />
         <label>Your Address:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeAddress(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeAddress(event)}
+        />
         <button>Submit</button>
       </form>
     </div>

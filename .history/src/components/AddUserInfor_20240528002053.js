@@ -74,23 +74,33 @@ const AddUserInfor = (props) => {
   };
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    props.handleAddNewUser({
+    this.props.handleAddNewUser({
       id: Math.floor(Math.random() * 100 + 1) + "-random",
-      name: name,
-      age: age,
-      address: address,
+      name: this.state.name,
+      age: this.state.age,
+      address: this.state.address,
     });
   };
   return (
     <div>
-      My name is {name} and I'm from {age}, I'm from {address}
-      <form onSubmit={(event) => handleOnSubmit(event)}>
+      My name is {this.state.name} and I'm from {this.state.age}, I'm from{" "}
+      {this.state.address}
+      <form onSubmit={(event) => this.handleOnSubmit(event)}>
         <label>Your Name:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeInput(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeInput(event)}
+        />
         <label>Your Age:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeAge(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeAge(event)}
+        />
         <label>Your Address:</label>
-        <input type="text" onChange={(event) => hanldeOnChangeAddress(event)} />
+        <input
+          type="text"
+          onChange={(event) => this.hanldeOnChangeAddress(event)}
+        />
         <button>Submit</button>
       </form>
     </div>
