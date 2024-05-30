@@ -28,7 +28,7 @@ const MyComponent = (props) => {
         <br /> <br />
         <DisplayInfor
           listUsers={listUsers}
-          handleDeleteUser={handleDeleteUser}
+          handleDeleteUser={handleDeleteUser()}
         ></DisplayInfor>
       </div>
       <div className="b"></div>

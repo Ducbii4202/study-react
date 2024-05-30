@@ -16,9 +16,9 @@ const MyComponent = (props) => {
     setListUsers([userObj, ...listUsers]);
   };
 
-  const handleDeleteUser = (userId) => {
+  const handleDeleteUser = (itemId) => {
     let listUsersClone = listUsers;
-    listUsersClone = listUsersClone.filter((item) => item.id !== userId);
+    listUsersClone = listUsersClone.filter((item) => item.id !== itemId);
     setListUsers(listUsersClone);
   };
   return (

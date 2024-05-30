@@ -38,36 +38,33 @@ import "./DisplayInfor.scss";
 // }
 
 // Step 2: ko có trạng thái dùng Stateless
-
 const DisplayInfor = (props) => {
-  const { listUsers } = props;
-  const [isShowHide, setShowHide] = useState(true);
-  const hanldeShowHide = () => {
-    setShowHide(!isShowHide);
+  const { listUser } = props;
+  const [isShowHideListUser, setShowHideListUser] = useState(true);
+  const handleShowHideListUser = () => {
+    setShowHideListUser(!isShowHideListUser);
   };
   return (
     <div className="display-infor-container">
       <div>
-        <span onClick={() => hanldeShowHide()}>
-          {isShowHide === true ? "Hide list users" : "Show list users"}
-        </span>
+        <span onClick={() => handleShowHideListUser()}>List uers</span>
       </div>
-      {isShowHide && (
+      {isShowHideListUser && (
         <>
-          {listUsers.map((item) => {
+          {listUser.map((user) => {
             return (
-              <div key={item.id} className={+item.age > 18 ? "green" : "red"}>
+              <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
                 <div>
-                  <div>My name's {item.name}</div>
-                  <div>My age's {item.age}</div>
-                  <div>My address {item.address}</div>
+                  <div>My name's {user.name}</div>
+                  <div>My age's {user.age}</div>
+                  <div>My address {user.address}</div>
                 </div>
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)}>
+                  <button onClick={() => props.handleDeleteUser(user.id)}>
                     Delete
                   </button>
                   <hr />
-                </div>{" "}
+                </div>
               </div>
             );
           })}

@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import AddUserInfor from "./AddUserInfor";
 import DisplayInfor from "./DisplayInfor";
 
-const MyComponent = (props) => {
+const MyComponent = () => {
   const [listUsers, setListUsers] = useState([
     { id: 1, name: "hoidanIT", age: "16", address: " Xuan Loc" },
     { id: 2, name: "Thanh", age: "25", address: " Thong Nhat" },
@@ -17,9 +17,8 @@ const MyComponent = (props) => {
   };
 
   const handleDeleteUser = (userId) => {
-    let listUsersClone = listUsers;
-    listUsersClone = listUsersClone.filter((item) => item.id !== userId);
-    setListUsers(listUsersClone);
+    listUsers.filter((item) => item.id !== userId);
+    setListUsers(listUsers);
   };
   return (
     <>

@@ -41,20 +41,11 @@ import "./DisplayInfor.scss";
 
 const DisplayInfor = (props) => {
   const { listUsers } = props;
-  const [isShowHide, setShowHide] = useState(true);
-  const hanldeShowHide = () => {
-    setShowHide(!isShowHide);
-  };
   return (
     <div className="display-infor-container">
-      <div>
-        <span onClick={() => hanldeShowHide()}>
-          {isShowHide === true ? "Hide list users" : "Show list users"}
-        </span>
-      </div>
-      {isShowHide && (
+      {true && (
         <>
-          {listUsers.map((item) => {
+          {listUser.map((item) => {
             return (
               <div key={item.id} className={+item.age > 18 ? "green" : "red"}>
                 <div>
@@ -63,7 +54,7 @@ const DisplayInfor = (props) => {
                   <div>My address {item.address}</div>
                 </div>
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)}>
+                  <button onClick={() => this.props.handleDeleteUser(item.id)}>
                     Delete
                   </button>
                   <hr />

@@ -63,7 +63,7 @@ const DisplayInfor = (props) => {
                   <div>My address {item.address}</div>
                 </div>
                 <div>
-                  <button onClick={() => props.handleDeleteUser(item.id)}>
+                  <button onClick={() => this.props.handleDeleteUser(item.id)}>
                     Delete
                   </button>
                   <hr />
