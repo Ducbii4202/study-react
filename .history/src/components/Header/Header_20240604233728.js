@@ -15,12 +15,8 @@ const Header = () => {
             <Link to="/" className="nav-link">
               Home
             </Link>
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-            <Link to="/admins" className="nav-link">
-              Admin
-            </Link>
+            <Link to="/users">Users</Link>
+            <Link to="/admins">Admin</Link>
           </Nav>
           <Nav>
             <NavDropdown title="Settings" id="basic-nav-dropdown">
