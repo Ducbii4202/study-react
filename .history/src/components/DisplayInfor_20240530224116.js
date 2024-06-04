@@ -46,7 +46,7 @@ const DisplayInfor = (props) => {
     setShowHide(!isShowHide);
   };
   useEffect(() => {
-    if (listUsers.length === 0) {
+    if (listUsers.lenght === 0) {
       alert("You deleted all users");
     }
   }, [listUsers]);

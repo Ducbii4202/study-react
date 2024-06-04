@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
 const App = () => {
-  return <div className="app-container">Hello World</div>;
+  return <div>Hello World</div>;
 };
 
 export default App;

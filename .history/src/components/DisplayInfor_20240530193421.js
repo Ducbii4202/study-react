@@ -46,10 +46,10 @@ const DisplayInfor = (props) => {
     setShowHide(!isShowHide);
   };
   useEffect(() => {
-    if (listUsers.length === 0) {
-      alert("You deleted all users");
-    }
-  }, [listUsers]);
+    setTimeout(() => {
+      document.title = "Bii";
+    }, 3000);
+  });
   return (
     <div className="display-infor-container">
       <div>
