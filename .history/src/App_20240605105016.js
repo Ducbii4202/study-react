@@ -11,8 +11,17 @@ const App = () => {
       </div>
       <div className="main-container">
         <div className="sidenav-container"></div>
-        <div className="app-content">
-          <Outlet />
+      </div>
+
+      <div>
+        test link
+        <div>
+          <button>
+            <Link to="/users">go to User page</Link>
+          </button>
+          <button>
+            <Link to="/admins">go to Admin page</Link>
+          </button>
         </div>
       </div>
     </div>

@@ -10,18 +10,9 @@ body {
 
 .app-container{
   .header-container{
-.navbar-nav{
-  .nav-link{
-    &.active{
+    .navbar-nav .nav-link.active{
       color: aqua;
-      //SCSS
     }
-  }
-}
-
-    // .navbar-nav .nav-link.active{
-    //   color: aqua;
-    //CSS }
   }
 }
 
