@@ -8,21 +8,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.app-container {
-  .header-container {
-    .navbar-nav {
-      z-index: 10;
-      opacity: 0.6;
-      .nav-link {
-        &.active {
-          color: #F62682;
-        }
-      }
+.app-container{
+  .header-container{
+    .navbar-nav{
+  .nav-link{
+    &.active{
+      color: aqua;
+      //SCSS
     }
   }
 }
-video {
-  position: fixed;;
+}
+}
+video{
+  position: fixed;
   bottom: 0;
   width: 100vw;
 }
