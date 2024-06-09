@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import SideBar from "./SideBar";
 import "./Admin.scss";
 import { FaBars } from "react-icons/fa";
 
 const Admin = (props) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState();
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
-        <SideBar collapsed={collapsed} />
+        <SideBar />
       </div>
       <div className="admin-content">
-        <FaBars onClick={() => setCollapsed(!collapsed)} />
+        <FaBars></FaBars>
         Content stay here
       </div>
     </div>

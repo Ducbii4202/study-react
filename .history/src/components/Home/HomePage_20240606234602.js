@@ -13,7 +13,7 @@ const HomePage = (props) => {
           You don't want to make a boring form And your audience won't answer
           one. Create a typeform instead-and make everone happy.
         </div>
-        <div className="title-1">
+        <div className="title-button">
           <button>Get's started. It's free</button>
         </div>
       </div>

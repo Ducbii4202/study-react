@@ -62,16 +62,10 @@ body {
       .title-long{
         font-size: 25px;
       }
-      .title-1{
-        button{
+      .title-button{
+        .button{
           border-radius: 5px;
-          padding: 0 15px;
-          background: #303030;
-          color: white;
-          height: 40px; 
-            &:hover{
-            background: black;
-      }
+        height: 40px;
         }
       }
     }

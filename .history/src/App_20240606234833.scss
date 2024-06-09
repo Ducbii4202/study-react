@@ -56,23 +56,12 @@ body {
       flex-direction: column;
       gap: 30px;
       .title-short{
-        font-size: 40px;
+        font-size: 45px;
         font-weight: 600;
       }
       .title-long{
         font-size: 25px;
-      }
-      .title-1{
-        button{
-          border-radius: 5px;
-          padding: 0 15px;
-          background: #303030;
-          color: white;
-          height: 40px; 
-            &:hover{
-            background: black;
-      }
-        }
+        
       }
     }
   }

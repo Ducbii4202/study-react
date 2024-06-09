@@ -20,7 +20,6 @@ body {
       margin-right: 15px ;
       padding: 0 17px;
       border: 1px solid #535353;
-      height: 40px;
       &:hover{
         color: aliceblue;
         background: black;
@@ -31,7 +30,6 @@ body {
       padding: 0 15px;
       background: #303030;
       color: white;
-      height: 40px; 
       &:hover{
         background: black;
       }
@@ -43,35 +41,6 @@ body {
       .nav-link {
         &.active {
           color: #F62682;
-        }
-      }
-    }
-  }
-  .homepage-container{
-    .homepage-content{
-      padding: 100px;
-      width: 50%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      .title-short{
-        font-size: 40px;
-        font-weight: 600;
-      }
-      .title-long{
-        font-size: 25px;
-      }
-      .title-1{
-        button{
-          border-radius: 5px;
-          padding: 0 15px;
-          background: #303030;
-          color: white;
-          height: 40px; 
-            &:hover{
-            background: black;
-      }
         }
       }
     }
