@@ -20,7 +20,7 @@ import {
 import sidebarBg from "../../assets/bg2.jpg";
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
-import "./SideBar.scss";
+// import "./Sidebar.scss";
 
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -58,9 +58,9 @@ const SideBar = (props) => {
           </Menu>
           <Menu iconShape="circle">
             <SubMenu icon={<FaGem />} title="Features">
-              <MenuItem> Manage Users</MenuItem>
-              <MenuItem> Manage Quizzes</MenuItem>
-              <MenuItem> Manage Questions</MenuItem>
+              <MenuItem> Manager Users</MenuItem>
+              <MenuItem> Manager Quiz</MenuItem>
+              <MenuItem> Manager Questions</MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
@@ -86,7 +86,7 @@ const SideBar = (props) => {
                   overflow: "hidden",
                 }}
               >
-                DucBii
+                viewSource
               </span>
             </a>
           </div>
