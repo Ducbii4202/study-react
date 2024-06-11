@@ -12,17 +12,8 @@ const ModalCreateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [role, setRole] = useState("User");
   const [image, setImage] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
-  const handleUploadImage = (e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-      setPreviewImage(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-    } else {
-      setPreviewImage("");
-    }
-  };
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -43,12 +34,7 @@ const ModalCreateUser = () => {
           <form className="row g-3">
             <div className="col-md-6">
               <label className="form-label">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input type="email" className="form-control" value={email} />
             </div>
             <div className="col-md-6">
               <label className="form-label">Password</label>
@@ -56,52 +42,30 @@ const ModalCreateUser = () => {
                 type="password"
                 className="form-control"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="col-md-6">
               <label className="form-label">Username</label>
-              <input
-                type="text"
-                className="form-control"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <input type="text" className="form-control" value={username} />
             </div>
             <div className="col-md-4">
-              <label className="form-label" value={role}>
-                Role
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => setRole(e.target.value)}
-              >
-                <option value="USERS">Users</option>
+              <label className="form-label">Role</label>
+              <select className="form-select">
+                <option selected value="USERS">
+                  Users
+                </option>
                 <option value="ADMIN">Admin</option>
               </select>
             </div>
             <div className="col-md-12">
-              <label
-                className="form-label label-upload"
-                htmlFor="labelUpload"
-                value={image}
-              >
+              <label className="form-label label-upload" htmlFor="labelUpload">
                 <FcPlus />
                 Upload File Image
               </label>
-              <input
-                type="file"
-                id="labelUpload"
-                hidden
-                onChange={(e) => handleUploadImage(e)}
-              />
+              <input type="file" id="labelUpload" hidden />
               <div className="col-md-12 img-preview">
-                {previewImage ? (
-                  // eslint-disable-next-line jsx-a11y/alt-text
-                  <img src={previewImage} />
-                ) : (
-                  <span>Preview Image</span>
-                )}
+                {/* <span>Preview Image</span> */}
+                {/* <img src="https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg" /> */}
               </div>
             </div>
           </form>

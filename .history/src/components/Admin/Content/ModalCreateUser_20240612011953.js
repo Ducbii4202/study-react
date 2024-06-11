@@ -16,12 +16,7 @@ const ModalCreateUser = () => {
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const handleUploadImage = (e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-      setPreviewImage(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-    } else {
-      setPreviewImage("");
-    }
+    setImage(e.target.files[0]);
   };
   return (
     <>
@@ -96,12 +91,8 @@ const ModalCreateUser = () => {
                 onChange={(e) => handleUploadImage(e)}
               />
               <div className="col-md-12 img-preview">
-                {previewImage ? (
-                  // eslint-disable-next-line jsx-a11y/alt-text
-                  <img src={previewImage} />
-                ) : (
-                  <span>Preview Image</span>
-                )}
+                <span>Preview Image</span>
+                {/* <img src="https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg" /> */}
               </div>
             </div>
           </form>

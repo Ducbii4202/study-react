@@ -15,13 +15,8 @@ const ModalCreateUser = () => {
   const [role, setRole] = useState("User");
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
-  const handleUploadImage = (e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-      setPreviewImage(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-    } else {
-      setPreviewImage("");
-    }
+  const handleUploadImage = (event) => {
+    setPreviewImage(URL.createObjectURL(event.target.files[0]));
   };
   return (
     <>

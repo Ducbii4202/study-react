@@ -8,8 +8,10 @@ const ManageUser = (props) => {
         <div>
           <button>Add new users</button>
         </div>
-        <div>table user</div>
-        <ModalCreateUser />
+        <div>
+          table user
+          <ModalCreateUser />
+        </div>
       </div>
     </div>
   );

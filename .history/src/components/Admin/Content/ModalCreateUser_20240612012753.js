@@ -18,7 +18,6 @@ const ModalCreateUser = () => {
   const handleUploadImage = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
     } else {
       setPreviewImage("");
     }
