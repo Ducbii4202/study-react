@@ -4,7 +4,9 @@ import { FcPlus } from "react-icons/fc";
 import { useState } from "react";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-
+  const handleShowHide = (value) => {
+    setShowModalCreateUser(value);
+  };
   return (
     <div className="manage-user-container">
       <div className="title">Magane User</div>
@@ -21,7 +23,7 @@ const ManageUser = (props) => {
         <div className="table-users-container">table user</div>
         <ModalCreateUser
           show={showModalCreateUser}
-          setShow={setShowModalCreateUser}
+          // setShow={setShowModalCreateUser}
         />
       </div>
     </div>

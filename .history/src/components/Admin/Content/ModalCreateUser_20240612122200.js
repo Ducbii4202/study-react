@@ -1,20 +1,13 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
+import { CiCirclePlus } from "react-icons/ci";
 
-const ModalCreateUser = (props) => {
-  const { show, setShow } = props;
-  const handleClose = () => {
-    setShow(false);
-    setEmail("");
-    setPassword("");
-    setUsername("");
-    setRole("USER");
-    setImage("");
-    setPreviewImage("");
-  };
+const ModalCreateUser = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,33 +23,11 @@ const ModalCreateUser = (props) => {
       setPreviewImage("");
     }
   };
-
-  const handleSubmitCreateUser = async () => {
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   role: role,
-    //   userImage: image,
-    // };
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    data.append("username", username);
-    data.append("role", role);
-    data.append("userImage", image);
-
-    let res = await axios.post(
-      "http://localhost:8081/api/v1/participant",
-      data
-    );
-    console.table("Check res", res);
-  };
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-      </Button> */}
+      </Button>
 
       <Modal
         show={show}
@@ -105,8 +76,8 @@ const ModalCreateUser = (props) => {
                 className="form-select"
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option value="USERS">USERS</option>
-                <option value="ADMIN">ADMIN</option>
+                <option value="USERS">Users</option>
+                <option value="ADMIN">Admin</option>
               </select>
             </div>
             <div className="col-md-12">
@@ -115,7 +86,7 @@ const ModalCreateUser = (props) => {
                 htmlFor="labelUpload"
                 value={image}
               >
-                <FcPlus />
+                <CiCirclePlus />
                 Upload File Image
               </label>
               <input
@@ -139,7 +110,7 @@ const ModalCreateUser = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+          <Button variant="primary" onClick={handleClose}>
             Save
           </Button>
         </Modal.Footer>

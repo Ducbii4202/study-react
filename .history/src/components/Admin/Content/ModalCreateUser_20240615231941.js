@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -6,15 +5,7 @@ import { FcPlus } from "react-icons/fc";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
-  const handleClose = () => {
-    setShow(false);
-    setEmail("");
-    setPassword("");
-    setUsername("");
-    setRole("USER");
-    setImage("");
-    setPreviewImage("");
-  };
+  const handleClose = () => setShow(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,26 +22,21 @@ const ModalCreateUser = (props) => {
     }
   };
 
-  const handleSubmitCreateUser = async () => {
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   role: role,
-    //   userImage: image,
-    // };
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    data.append("username", username);
-    data.append("role", role);
-    data.append("userImage", image);
+  const handleSubmitCreateUser = () => {
+    let data = {
+      email: email,
+      password: password,
+      username: username,
+      role: role,
+      userImage: image,
+    };
+    console.table(data);
+    const form = new FormData();
+    form.append("my_field", "my value");
+    form.append("my_buffer", new Buffer(10));
+    form.append("my_file", fs.createReadStream("/foo/bar.jpg"));
 
-    let res = await axios.post(
-      "http://localhost:8081/api/v1/participant",
-      data
-    );
-    console.table("Check res", res);
+    axios.post("https://example.com", form);
   };
   return (
     <>
@@ -105,8 +91,8 @@ const ModalCreateUser = (props) => {
                 className="form-select"
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option value="USERS">USERS</option>
-                <option value="ADMIN">ADMIN</option>
+                <option value="USERS">Users</option>
+                <option value="ADMIN">Admin</option>
               </select>
             </div>
             <div className="col-md-12">

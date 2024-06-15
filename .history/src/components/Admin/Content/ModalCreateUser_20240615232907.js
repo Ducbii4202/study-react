@@ -6,15 +6,7 @@ import { FcPlus } from "react-icons/fc";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
-  const handleClose = () => {
-    setShow(false);
-    setEmail("");
-    setPassword("");
-    setUsername("");
-    setRole("USER");
-    setImage("");
-    setPreviewImage("");
-  };
+  const handleClose = () => setShow(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +31,7 @@ const ModalCreateUser = (props) => {
     //   role: role,
     //   userImage: image,
     // };
+    // console.table(data);
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
@@ -105,8 +98,8 @@ const ModalCreateUser = (props) => {
                 className="form-select"
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option value="USERS">USERS</option>
-                <option value="ADMIN">ADMIN</option>
+                <option value="USERS">Users</option>
+                <option value="ADMIN">Admin</option>
               </select>
             </div>
             <div className="col-md-12">
