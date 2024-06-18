@@ -22,7 +22,7 @@ const Admin = (props) => {
         </div>
       </div>
       <ToastContainer
-        position="top-right"
+        position="bottom-left"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -31,6 +31,8 @@ const Admin = (props) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        theme="light"
+        // transition:Bounce
       />
     </div>
   );

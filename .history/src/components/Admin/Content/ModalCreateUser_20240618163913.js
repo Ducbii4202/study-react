@@ -47,7 +47,6 @@ const ModalCreateUser = (props) => {
       toast.error("Invalid email");
       return;
     }
-
     if (!password) {
       toast.error("Invalid password");
       return;
@@ -65,14 +64,7 @@ const ModalCreateUser = (props) => {
       "http://localhost:8081/api/v1/participant",
       data
     );
-    console.table("Check res", res.data);
-    if (res.data && res.data.EC === 0) {
-      toast.success(res.data.EM);
-      handleClose();
-    }
-    if (res.data && res.data.EC !== 0) {
-      toast.error(res.data.EM);
-    }
+    console.table("Check res", res);
   };
   return (
     <>

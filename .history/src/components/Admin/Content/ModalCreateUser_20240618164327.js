@@ -68,10 +68,6 @@ const ModalCreateUser = (props) => {
     console.table("Check res", res.data);
     if (res.data && res.data.EC === 0) {
       toast.success(res.data.EM);
-      handleClose();
-    }
-    if (res.data && res.data.EC !== 0) {
-      toast.error(res.data.EM);
     }
   };
   return (
