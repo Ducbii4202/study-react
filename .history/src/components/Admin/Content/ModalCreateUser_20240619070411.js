@@ -41,7 +41,7 @@ const ModalCreateUser = (props) => {
   };
 
   const handleSubmitCreateUser = async () => {
-    //validate email
+    validate email
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("Invalid email");
