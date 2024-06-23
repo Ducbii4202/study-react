@@ -6,8 +6,8 @@ import TableUser from "./TableUser";
 import { getAllUser } from "../../../services/apiService";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-
   const [listUser, setListUser] = useState([]);
+
   //componentDidMount
   useEffect(() => {
     fetchingUsers();
@@ -19,7 +19,6 @@ const ManageUser = (props) => {
       setListUser(res.DT);
     }
   };
-
   return (
     <div className="manage-user-container">
       <div className="title">Magane User</div>
@@ -34,12 +33,11 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div className="table-users-container">
-          <TableUser listUser={listUser} />
+          <TableUser />
         </div>
         <ModalCreateUser
           show={showModalCreateUser}
           setShow={setShowModalCreateUser}
-          fetchingUsers={fetchingUsers}
         />
       </div>
     </div>

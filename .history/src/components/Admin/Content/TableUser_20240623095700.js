@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 const TableUser = (props) => {
-  // const  listUser = props.listUser;
   const { listUser } = props;
-
+  // const  listUser = props.listUser;l
   return (
     <>
       <table className="table table-hover table-bordered">
