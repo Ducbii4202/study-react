@@ -7,8 +7,6 @@ import { getAllUser } from "../../../services/apiService";
 import ModalUpdateUser from "./ModalUpdateUser";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-  const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
-  const [dataUpdate, setDataUpdate] = useState({});
 
   const [listUser, setListUser] = useState([]);
   //componentDidMount
@@ -21,10 +19,6 @@ const ManageUser = (props) => {
     if (res.EC === 0) {
       setListUser(res.DT);
     }
-  };
-  const hanldeClickBtnUpdate = (user) => {
-    setShowModalUpdateUser(true);
-    setDataUpdate(user);
   };
 
   return (
@@ -41,21 +35,14 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div className="table-users-container">
-          <TableUser
-            listUser={listUser}
-            hanldeClickBtnUpdate={hanldeClickBtnUpdate}
-          />
+          <TableUser listUser={listUser} />
         </div>
         <ModalCreateUser
           show={showModalCreateUser}
           setShow={setShowModalCreateUser}
           fetchingUsers={fetchingUsers}
         />
-        <ModalUpdateUser
-          show={showModalUpdateUser}
-          setShow={setShowModalUpdateUser}
-          dataUpdate={dataUpdate}
-        />
+        <ModalUpdateUser show={show} />
       </div>
     </div>
   );

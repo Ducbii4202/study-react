@@ -8,7 +8,7 @@ import ModalUpdateUser from "./ModalUpdateUser";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
-  const [dataUpdate, setDataUpdate] = useState({});
+  const [dataUpdate, setDataUpdate] = useState(false);
 
   const [listUser, setListUser] = useState([]);
   //componentDidMount
@@ -24,7 +24,6 @@ const ManageUser = (props) => {
   };
   const hanldeClickBtnUpdate = (user) => {
     setShowModalUpdateUser(true);
-    setDataUpdate(user);
   };
 
   return (
@@ -54,7 +53,6 @@ const ManageUser = (props) => {
         <ModalUpdateUser
           show={showModalUpdateUser}
           setShow={setShowModalUpdateUser}
-          dataUpdate={dataUpdate}
         />
       </div>
     </div>

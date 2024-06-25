@@ -30,7 +30,7 @@ const TableUser = (props) => {
                     <button className="btn btn-secondary">View</button>
                     <button
                       className="btn btn-warning mx-3"
-                      onClick={() => props.hanldeClickBtnUpdate(item)}
+                      onClick={() => props.hanldeClickBtnUpdate()}
                     >
                       Update
                     </button>
