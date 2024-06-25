@@ -16,7 +16,6 @@ const ModalUpdateUser = (props) => {
     setRole("USER");
     setImage("");
     setPreviewImage("");
-    props.resetUpdateData();
   };
 
   const [email, setEmail] = useState("");
