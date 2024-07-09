@@ -45,7 +45,7 @@ const ManageUser = (props) => {
 
   const hanldeClickBtnDelete = (user) => {
     setShowModalDeleteUser(true);
-    setDataDelete(user);
+    setDataDelete({});
   };
 
   return (

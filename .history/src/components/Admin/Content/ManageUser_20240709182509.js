@@ -45,7 +45,7 @@ const ManageUser = (props) => {
 
   const hanldeClickBtnDelete = (user) => {
     setShowModalDeleteUser(true);
-    setDataDelete(user);
+    setDataDelete({});
   };
 
   return (
@@ -91,7 +91,7 @@ const ManageUser = (props) => {
         <ModalDeleteUser
           show={showModalDeleteUser}
           setShow={setShowModalDeleteUser}
-          dataDelete={dataDelete}
+          dataUpdate={dataUpdate}
         />
       </div>
     </div>

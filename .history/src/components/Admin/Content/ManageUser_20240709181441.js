@@ -10,12 +10,10 @@ import ModalDeleteUser from "./ModalDeleteUser";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
-
   const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
 
   const [dataUpdate, setDataUpdate] = useState({});
-  const [dataDelete, setDataDelete] = useState({});
 
   const [listUser, setListUser] = useState([]);
   //componentDidMount
@@ -43,11 +41,6 @@ const ManageUser = (props) => {
     setDataUpdate(user);
   };
 
-  const hanldeClickBtnDelete = (user) => {
-    setShowModalDeleteUser(true);
-    setDataDelete(user);
-  };
-
   return (
     <div className="manage-user-container">
       <div className="title">Magane User</div>
@@ -66,7 +59,6 @@ const ManageUser = (props) => {
             listUser={listUser}
             hanldeClickBtnUpdate={hanldeClickBtnUpdate}
             handleClickBtnView={handleClickBtnView}
-            hanldeClickBtnDelete={hanldeClickBtnDelete}
           />
         </div>
         <ModalCreateUser
@@ -91,7 +83,6 @@ const ManageUser = (props) => {
         <ModalDeleteUser
           show={showModalDeleteUser}
           setShow={setShowModalDeleteUser}
-          dataDelete={dataDelete}
         />
       </div>
     </div>

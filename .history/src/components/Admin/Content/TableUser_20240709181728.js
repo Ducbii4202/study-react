@@ -39,7 +39,7 @@ const TableUser = (props) => {
                     </button>
                     <button
                       className="btn btn-danger"
-                      onClick={() => props.hanldeClickBtnDelete(item)}
+                      onClick={() => props.hanldeClickBtnDelete}
                     >
                       Delete
                     </button>
