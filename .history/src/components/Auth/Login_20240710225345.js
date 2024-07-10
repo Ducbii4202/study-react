@@ -59,7 +59,7 @@ const Login = (props) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group pass-group">
+        <div className="form-group">
           <label>Password</label>
           <input
             type={setIsShowPassword ? "text" : "password"}
@@ -67,18 +67,7 @@ const Login = (props) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {isShowPassword ? (
-            <span
-              className="incon-eye"
-              onClick={() => setIsShowPassword(false)}
-            >
-              <VscEye />
-            </span>
-          ) : (
-            <span className="incon-eye" onClick={() => setIsShowPassword(true)}>
-              <VscEyeClosed />
-            </span>
-          )}
+          {isShowPassword ? <span>{VscEye}</span> : <span>{VscEyeClosed}</span>}
         </div>
         <span className="forgot-password">Forgot Password ?</span>
         <div>

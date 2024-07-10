@@ -3,14 +3,11 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiService";
 import { toast } from "react-toastify";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const validateEmail = (email) => {
     return String(email)
@@ -59,26 +56,14 @@ const Login = (props) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group pass-group">
+        <div className="form-group">
           <label>Password</label>
           <input
-            type={setIsShowPassword ? "text" : "password"}
+            type={"password"}
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {isShowPassword ? (
-            <span
-              className="incon-eye"
-              onClick={() => setIsShowPassword(false)}
-            >
-              <VscEye />
-            </span>
-          ) : (
-            <span className="incon-eye" onClick={() => setIsShowPassword(true)}>
-              <VscEyeClosed />
-            </span>
-          )}
         </div>
         <span className="forgot-password">Forgot Password ?</span>
         <div>

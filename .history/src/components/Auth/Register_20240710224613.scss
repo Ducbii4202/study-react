@@ -1,4 +1,4 @@
-.login-container{
+.regiter-container{
     .header{
         height: 45px;
         text-align: right;
@@ -50,9 +50,9 @@
         .back{
             cursor: pointer;
         }
-        .pass-group {
-            position: relative;
-            .incon-eye{
+
+        .pass-group{
+            .icons-eys {
                 cursor: pointer;
                 position: absolute;
                 right: 10px;

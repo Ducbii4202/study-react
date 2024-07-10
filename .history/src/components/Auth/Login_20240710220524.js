@@ -3,14 +3,11 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiService";
 import { toast } from "react-toastify";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const validateEmail = (email) => {
     return String(email)
@@ -22,6 +19,7 @@ const Login = (props) => {
 
   const handleLogin = async () => {
     //validate
+
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("Invalid email");
@@ -32,6 +30,7 @@ const Login = (props) => {
       toast.error("Invalid password");
       return;
     }
+
     //submit Api
     let data = await postLogin(email, password);
     if (data && +data.EC === 0) {
@@ -45,9 +44,9 @@ const Login = (props) => {
     <div className="login-container">
       <div className="header">
         <span>Don't have an account yet?</span>
-        <button onClick={() => navigate("/register")}>Sign Up</button>
+        <button>Sign Up</button>
       </div>
-      <div className="title col-4 mx-auto">HoiDanIt &amp; Bii</div>
+      <div className="title col-4 mx-auto">HoiDanIt</div>
       <div className="welcome col-4 mx-auto">Hello, who's this?</div>
       <div className="content-form col-4 mx-auto">
         <div className="form-group">
@@ -59,26 +58,14 @@ const Login = (props) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group pass-group">
+        <div className="form-group">
           <label>Password</label>
           <input
-            type={setIsShowPassword ? "text" : "password"}
+            type={"password"}
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {isShowPassword ? (
-            <span
-              className="incon-eye"
-              onClick={() => setIsShowPassword(false)}
-            >
-              <VscEye />
-            </span>
-          ) : (
-            <span className="incon-eye" onClick={() => setIsShowPassword(true)}>
-              <VscEyeClosed />
-            </span>
-          )}
         </div>
         <span className="forgot-password">Forgot Password ?</span>
         <div>

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./Login.scss";
 import { useNavigate } from "react-router-dom";
-import { postLogin } from "../../services/apiService";
+import "./Register.scss";
 import { toast } from "react-toastify";
-import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { postRegister } from "../../services/apiService";
 
-const Login = (props) => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsaernamed] = useState("");
   const navigate = useNavigate();
 
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -20,8 +20,9 @@ const Login = (props) => {
       );
   };
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     //validate
+
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("Invalid email");
@@ -32,8 +33,9 @@ const Login = (props) => {
       toast.error("Invalid password");
       return;
     }
+
     //submit Api
-    let data = await postLogin(email, password);
+    let data = await postRegister(email, username, password);
     if (data && +data.EC === 0) {
       navigate("/");
     }
@@ -41,11 +43,12 @@ const Login = (props) => {
       toast.error(data.EM);
     }
   };
+
   return (
     <div className="login-container">
       <div className="header">
         <span>Don't have an account yet?</span>
-        <button onClick={() => navigate("/register")}>Sign Up</button>
+        <button onClick={() => navigate("/login")}>Sign Up</button>
       </div>
       <div className="title col-4 mx-auto">HoiDanIt &amp; Bii</div>
       <div className="welcome col-4 mx-auto">Hello, who's this?</div>
@@ -59,31 +62,28 @@ const Login = (props) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group pass-group">
+        <div className="form-group">
           <label>Password</label>
           <input
-            type={setIsShowPassword ? "text" : "password"}
+            type={"password"}
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {isShowPassword ? (
-            <span
-              className="incon-eye"
-              onClick={() => setIsShowPassword(false)}
-            >
-              <VscEye />
-            </span>
-          ) : (
-            <span className="incon-eye" onClick={() => setIsShowPassword(true)}>
-              <VscEyeClosed />
-            </span>
-          )}
+        </div>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type={"username"}
+            className="form-control"
+            value={username}
+            onChange={(e) => setUsaernamed(e.target.value)}
+          />
         </div>
         <span className="forgot-password">Forgot Password ?</span>
         <div>
-          <button className="btn-submit" onClick={() => handleLogin()}>
-            Login
+          <button className="btn-submit" onClick={() => handleRegister()}>
+            Register
           </button>
         </div>
         <div className="text-center">
@@ -101,4 +101,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Register;
