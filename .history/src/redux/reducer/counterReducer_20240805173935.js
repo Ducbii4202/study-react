@@ -1,7 +1,11 @@
 import { INCREMENT, DECREMENT } from "../action/counterAction";
 const INITIAL_STATE = {
-  count: 0,
-  name: "Eric",
+  account: {
+    access_token: "",
+    refresh_token: "",
+    username: "",
+  },
+  isAuthenticated: false,
 };
 const countReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

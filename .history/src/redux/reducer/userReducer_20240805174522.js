@@ -1,11 +1,16 @@
 import { INCREMENT, DECREMENT } from "../action/counterAction";
 const INITIAL_STATE = {
-  count: 0,
-  name: "Eric",
+  account: {
+    access_token: "",
+    refresh_token: "",
+    username: "",
+  },
+  isAuthenticated: false,
 };
-const countReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case INCREMENT:
+    case "FETCH_USER_LOGIN_SUCCESS":
+      console.log("check acction", action);
       return {
         ...state,
         count: state.count + 1,
@@ -21,4 +26,4 @@ const countReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default countReducer;
+export default userReducer;

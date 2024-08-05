@@ -38,22 +38,20 @@ const Header = () => {
             </NavLink>
           </Nav>
           <Nav>
-            {isAuthenticated === false ? (
+            {isAuthenticated === false ?
               <>
-                <button className="btn-login" onClick={() => handleLogin()}>
-                  Log in
-                </button>
-                <button className="btn-signup" onClick={() => handleRegister()}>
-                  Sign up
-                </button>
-              </>
-            ) : (
-              <NavDropdown title="Settings" id="basic-nav-dropdown">
-                <NavDropdown.Item>Log out</NavDropdown.Item>
-                <NavDropdown.Item>Profile</NavDropdown.Item>
-              </NavDropdown>
-            )}
-          </Nav>
+            <button className="btn-login" onClick={() => handleLogin()}>
+              Log in
+            </button>
+            <button className="btn-signup" onClick={() => handleRegister()}>
+              Sign up
+            </button>
+          </Nav> 
+          <NavDropdown title="Settings" id="basic-nav-dropdown">
+            <NavDropdown.Item>Login</NavDropdown.Item>
+            <NavDropdown.Item>Logout</NavDropdown.Item>
+            <NavDropdown.Item>Profile</NavDropdown.Item>
+          </NavDropdown>}
         </Navbar.Collapse>
       </Container>
     </Navbar>

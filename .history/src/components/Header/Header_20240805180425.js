@@ -49,7 +49,7 @@ const Header = () => {
               </>
             ) : (
               <NavDropdown title="Settings" id="basic-nav-dropdown">
-                <NavDropdown.Item>Log out</NavDropdown.Item>
+                <NavDropdown.Item>Logout</NavDropdown.Item>
                 <NavDropdown.Item>Profile</NavDropdown.Item>
               </NavDropdown>
             )}
