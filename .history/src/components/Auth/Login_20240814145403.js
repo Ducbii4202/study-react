@@ -97,7 +97,7 @@ const Login = (props) => {
             onClick={() => handleLogin()}
             disabled={isLoading}
           >
-            {isLoading === true && <ImSpinner9 className="loader-icon" />}
+            <ImSpinner9 className="loader-icon" />
             <span>Login</span>
           </button>
         </div>

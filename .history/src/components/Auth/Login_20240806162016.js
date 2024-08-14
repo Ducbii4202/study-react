@@ -14,7 +14,6 @@ const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const validateEmail = (email) => {
@@ -37,18 +36,15 @@ const Login = (props) => {
       toast.error("Invalid password");
       return;
     }
-    setIsLoading(true);
     //submit Api
     let data = await postLogin(email, password);
     if (data && +data.EC === 0) {
       dispatch(doLogin(data));
       toast.success(data.EM);
-      setIsLoading(false);
       navigate("/");
     }
     if (data && +data.EC !== 0) {
       toast.error(data.EM);
-      setIsLoading(false);
     }
   };
   return (
@@ -92,12 +88,7 @@ const Login = (props) => {
         </div>
         <span className="forgot-password">Forgot Password ?</span>
         <div>
-          <button
-            className="btn-submit"
-            onClick={() => handleLogin()}
-            disabled={isLoading}
-          >
-            {isLoading === true && <ImSpinner9 className="loader-icon" />}
+          <button className="btn-submit" onClick={() => handleLogin()}>
             <span>Login</span>
           </button>
         </div>

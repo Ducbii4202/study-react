@@ -9,8 +9,7 @@ NProgress.configure({
   // easing: "ease",
   // speed: 200,
   // trickle: true,
-  // trickleRate: 0.02,
-  trickleSpeed: 100,
+  trickleRate: 0.02,
 });
 
 const instance = axios.create({
