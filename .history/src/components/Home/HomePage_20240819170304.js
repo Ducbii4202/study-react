@@ -20,11 +20,9 @@ const HomePage = (props) => {
         </div>
         <div className="title-1">
           {isAuthenticated === false ? (
-            <button onClick={() => navigate("./login")}>
-              Get's started. It's free
-            </button>
+            <button>Get's started. It's free</button>
           ) : (
-            <button onClick={() => navigate("./users")}>Doing Quiz Now</button>
+            <button>Doing Quiz Now</button>
           )}
         </div>
       </div>

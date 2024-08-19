@@ -24,7 +24,7 @@ const HomePage = (props) => {
               Get's started. It's free
             </button>
           ) : (
-            <button onClick={() => navigate("./users")}>Doing Quiz Now</button>
+            <button>Doing Quiz Now</button>
           )}
         </div>
       </div>
