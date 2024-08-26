@@ -16,7 +16,8 @@ import DetailQuiz from "./components/User/DetailQuiz";
 const Layout = (props) => {
   const NotFound = () => {
     return (
-      <div className="container mt-3 alert alert-danger">
+      <div className="container alert alert-danger">
+        {" "}
         404. Not found data with current URL
       </div>
     );

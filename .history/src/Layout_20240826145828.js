@@ -14,13 +14,6 @@ import ListQuiz from "./components/User/ListQuiz";
 import DetailQuiz from "./components/User/DetailQuiz";
 
 const Layout = (props) => {
-  const NotFound = () => {
-    return (
-      <div className="container mt-3 alert alert-danger">
-        404. Not found data with current URL
-      </div>
-    );
-  };
   return (
     <>
       <Routes>
@@ -38,7 +31,6 @@ const Layout = (props) => {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer
         position="top-right"
