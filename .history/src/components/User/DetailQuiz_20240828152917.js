@@ -53,8 +53,8 @@ const DetailQuiz = (props) => {
           </div>
         </div>
         <div className="footer">
-          <button className="btn btn-sencondary">Prev</button>
           <button className="btn btn-primary">Next</button>
+          <button>Prev</button>
         </div>
       </div>
       <div className="right-content">count down</div>
