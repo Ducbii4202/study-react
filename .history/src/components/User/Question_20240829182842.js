@@ -1,0 +1,27 @@
+/* eslint-disable jsx-a11y/alt-text */
+import React from "react";
+import _ from "lodash";
+
+const Question = (props) => {
+  const { data, index } = props;
+  if (_.isEmpty(data)) {
+    return <></>;
+  }
+  return (
+    <>
+      <div>
+        <img src={`data:image/jpeg/jpeq;base64, ${data.image}`} />
+      </div>
+      <div className="question">
+        Question {index + 1}: {data.questionDescription}
+      </div>
+      <div className="answer">
+        <div className="a-child">A.dikjsbdfk</div>
+        <div className="b-child">B.dikjsbdfk</div>
+        <div className="c-child">C.dikjsbdfk</div>
+      </div>
+    </>
+  );
+};
+
+export default Question;

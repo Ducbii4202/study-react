@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiService";
 import _ from "lodash";
 import "./DetailQuiz.scss";
-import Question from "./Question";
 
 const DetailQuiz = (props) => {
   const params = useParams();
   const location = useLocation();
   const quizId = params.id;
-
-  const [dataQuiz, setDataQuiz] = useState([]);
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     fetchQuestions();
@@ -37,17 +33,8 @@ const DetailQuiz = (props) => {
           return { questionId: key, answers, questionDescription, image };
         })
         .value();
-      setDataQuiz(data);
     }
   };
-  const hanldePrev = () => {
-    if (index - 1 < 0) return;
-    setIndex(index - 1);
-  };
-  const handleNext = () => {
-    if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
-  };
-  console.log("check dataQuiz", dataQuiz);
   return (
     <div className="detail-quiz-container">
       <div className="left-content">
@@ -59,18 +46,16 @@ const DetailQuiz = (props) => {
           <img />
         </div>
         <div className="q-content">
-          <Question
-            index={index}
-            data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
-          />
+          <div className="question">Question 1: Fack</div>
+          <div className="answer">
+            <div className="a-child">A.dikjsbdfk</div>
+            <div className="b-child">B.dikjsbdfk</div>
+            <div className="c-child">C.dikjsbdfk</div>
+          </div>
         </div>
         <div className="footer">
-          <button className="btn btn-sencondary" onClick={() => hanldePrev()}>
-            Prev
-          </button>
-          <button className="btn btn-primary" onClick={() => handleNext()}>
-            Next
-          </button>
+          <button className="btn btn-sencondary">Prev</button>
+          <button className="btn btn-primary">Next</button>
         </div>
       </div>
       <div className="right-content">count down</div>

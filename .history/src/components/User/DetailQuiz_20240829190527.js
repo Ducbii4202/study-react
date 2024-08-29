@@ -40,13 +40,8 @@ const DetailQuiz = (props) => {
       setDataQuiz(data);
     }
   };
-  const hanldePrev = () => {
-    if (index - 1 < 0) return;
-    setIndex(index - 1);
-  };
-  const handleNext = () => {
-    if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
-  };
+  const hanldePrev = () => {};
+  const hanldeNext = () => {};
   console.log("check dataQuiz", dataQuiz);
   return (
     <div className="detail-quiz-container">

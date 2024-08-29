@@ -45,7 +45,7 @@ const DetailQuiz = (props) => {
     setIndex(index - 1);
   };
   const handleNext = () => {
-    if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
+    if (dataQuiz && dataQuiz.length >= index + 1) setIndex(index + 1);
   };
   console.log("check dataQuiz", dataQuiz);
   return (

@@ -40,7 +40,7 @@ const ListQuiz = (props) => {
                   onClick={() =>
                     navigate(`/quiz/${quiz.id}`, {
                       state: {
-                        quizTitle: quiz.description,
+                        quizTitle: quiz.desciption,
                       },
                     })
                   }
