@@ -32,7 +32,7 @@ const DetailQuiz = (props) => {
               questionDescription = item.description;
               image = item.image;
             }
-            item.answers.isSelected = false;
+            item.answers.isSelecter = false;
             answers.push(item.answers);
           });
           return { questionId: key, answers, questionDescription, image };
@@ -49,14 +49,14 @@ const DetailQuiz = (props) => {
     if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
   };
 
-  const hanldeCheckBox = (answerId, questionId) => {
+  const hanldeCheckBox = (answersId, questionId) => {
     let dataQuizClone = _.cloneDeep(dataQuiz);
     let question = dataQuizClone.find(
       (item) => +item.questionId === +questionId
     );
     if (question && question.answers) {
       let b = question.answers.map((item) => {
-        if (+item.id === +answerId) {
+        if (+item.id === answersId) {
           item.isSelected = !item.isSelected;
         }
         return item;

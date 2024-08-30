@@ -7,9 +7,8 @@ const Question = (props) => {
   if (_.isEmpty(data)) {
     return <></>;
   }
-  const hanldeHanldeCheckBox = (event, aId, qId) => {
-    props.hanldeCheckBox(aId, qId);
-  };
+
+  const hanldeHanldeCheckBox = (e) => {};
   return (
     <>
       {data.image ? (
@@ -28,16 +27,13 @@ const Question = (props) => {
           data.answers.map((a, index) => {
             return (
               <div key={`answer-${index}`} className="a-child">
-                <div className="form-check">
+                <div class="form-check">
                   <input
-                    className="form-check-input"
+                    class="form-check-input"
                     type="checkbox"
-                    checked={a.isSelected}
-                    onChange={(event) =>
-                      hanldeHanldeCheckBox(event, a.id, data.questionId)
-                    }
+                    onChange={(e) => hanldeHanldeCheckBox(e)}
                   />
-                  <label className="form-check-label">{a.description}</label>
+                  <label class="form-check-label">{a.description}</label>
                 </div>
               </div>
             );

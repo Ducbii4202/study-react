@@ -34,7 +34,7 @@ const Question = (props) => {
                     type="checkbox"
                     checked={a.isSelected}
                     onChange={(event) =>
-                      hanldeHanldeCheckBox(event, a.id, data.questionId)
+                      hanldeHanldeCheckBox(event, a.id, data.questionsId)
                     }
                   />
                   <label className="form-check-label">{a.description}</label>

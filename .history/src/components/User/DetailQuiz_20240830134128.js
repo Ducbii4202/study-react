@@ -32,7 +32,7 @@ const DetailQuiz = (props) => {
               questionDescription = item.description;
               image = item.image;
             }
-            item.answers.isSelected = false;
+            item.answers.isSelecter = false;
             answers.push(item.answers);
           });
           return { questionId: key, answers, questionDescription, image };
@@ -49,27 +49,14 @@ const DetailQuiz = (props) => {
     if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
   };
 
-  const hanldeCheckBox = (answerId, questionId) => {
+  const hanldeCheckBox = (answersId, questionId) => {
     let dataQuizClone = _.cloneDeep(dataQuiz);
     let question = dataQuizClone.find(
-      (item) => +item.questionId === +questionId
+      (item) => +item.questionId === +questionId;
+      if(question) {
+        console.log('q:', question)
+      }
     );
-    if (question && question.answers) {
-      let b = question.answers.map((item) => {
-        if (+item.id === +answerId) {
-          item.isSelected = !item.isSelected;
-        }
-        return item;
-      });
-      question.answers = b;
-    }
-    let index = dataQuizClone.findIndex(
-      (item) => +item.questionId === +questionId
-    );
-    if (index > -1) {
-      dataQuizClone[index] = question;
-      setDataQuiz(dataQuizClone);
-    }
   };
 
   return (
@@ -85,7 +72,6 @@ const DetailQuiz = (props) => {
         <div className="q-content">
           <Question
             index={index}
-            hanldeCheckBox={hanldeCheckBox}
             data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
           />
         </div>
