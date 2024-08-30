@@ -62,27 +62,10 @@ const DetailQuiz = (props) => {
     //     ]
     // }
     let payload = {
-      quizId: +quizId,
+      quizId: quizId,
       answer: [],
     };
-    let answers = [];
     if (dataQuiz && dataQuiz.length > 0) {
-      dataQuiz.forEach((question) => {
-        let questionId = question.questionId;
-        let userAnswerId = [];
-
-        question.answers.forEach((a) => {
-          if (a.isSelected === true) {
-            userAnswerId.push(a.id);
-          }
-        });
-        answers.push({
-          questionId: +questionId,
-          userAnswerId: userAnswerId,
-        });
-      });
-      payload.answers = answers;
-      console.log("final payload", payload);
     }
   };
 

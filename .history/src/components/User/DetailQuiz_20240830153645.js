@@ -47,44 +47,7 @@ const DetailQuiz = (props) => {
   const handleNext = () => {
     if (dataQuiz && dataQuiz.length > index + 1) setIndex(index + 1);
   };
-  const handleFinishQuiz = () => {
-    //     {
-    //     "quizId": 1,
-    //     "answers": [
-    //         {
-    //             "questionId": 1,
-    //             "userAnswerId": [3]
-    //         },
-    //         {
-    //             "questionId": 2,
-    //             "userAnswerId": [6]
-    //         }
-    //     ]
-    // }
-    let payload = {
-      quizId: +quizId,
-      answer: [],
-    };
-    let answers = [];
-    if (dataQuiz && dataQuiz.length > 0) {
-      dataQuiz.forEach((question) => {
-        let questionId = question.questionId;
-        let userAnswerId = [];
-
-        question.answers.forEach((a) => {
-          if (a.isSelected === true) {
-            userAnswerId.push(a.id);
-          }
-        });
-        answers.push({
-          questionId: +questionId,
-          userAnswerId: userAnswerId,
-        });
-      });
-      payload.answers = answers;
-      console.log("final payload", payload);
-    }
-  };
+  const handleFinishQuiz = () => {};
 
   const hanldeCheckBox = (answerId, questionId) => {
     let dataQuizClone = _.cloneDeep(dataQuiz);

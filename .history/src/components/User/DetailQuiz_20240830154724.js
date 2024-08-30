@@ -67,15 +67,9 @@ const DetailQuiz = (props) => {
     };
     let answers = [];
     if (dataQuiz && dataQuiz.length > 0) {
-      dataQuiz.forEach((question) => {
-        let questionId = question.questionId;
+      dataQuiz.forEach((item) => {
+        let questionId = item.questionId;
         let userAnswerId = [];
-
-        question.answers.forEach((a) => {
-          if (a.isSelected === true) {
-            userAnswerId.push(a.id);
-          }
-        });
         answers.push({
           questionId: +questionId,
           userAnswerId: userAnswerId,

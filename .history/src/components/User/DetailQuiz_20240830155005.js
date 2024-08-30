@@ -71,6 +71,7 @@ const DetailQuiz = (props) => {
         let questionId = question.questionId;
         let userAnswerId = [];
 
+        // todo: useAnswerId
         question.answers.forEach((a) => {
           if (a.isSelected === true) {
             userAnswerId.push(a.id);
