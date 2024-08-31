@@ -4,7 +4,6 @@ import { getDataQuiz, postSubmitQuiz } from "../../services/apiService";
 import _ from "lodash";
 import "./DetailQuiz.scss";
 import Question from "./Question";
-import ModalResult from "./ModalResult";
 
 const DetailQuiz = (props) => {
   const params = useParams();
@@ -13,9 +12,6 @@ const DetailQuiz = (props) => {
 
   const [dataQuiz, setDataQuiz] = useState([]);
   const [index, setIndex] = useState(0);
-
-  const [isShowModalResult, setIsShowModalResult] = useState(false);
-  const [dataModalResult, setDataModalResult] = useState([]);
 
   useEffect(() => {
     fetchQuestions();
@@ -90,12 +86,6 @@ const DetailQuiz = (props) => {
       let res = await postSubmitQuiz(payload);
       console.log("check res", res);
       if (res && res.EC === 0) {
-        setDataModalResult({
-          countCorrect: res.DT.countCorrect,
-          countTotal: res.DT.countTotal,
-          quizData: res.DT.quizData,
-        });
-        setIsShowModalResult(true);
       } else {
         alert("someting wrong answer");
       }
@@ -158,11 +148,6 @@ const DetailQuiz = (props) => {
         </div>
       </div>
       <div className="right-content">count down</div>
-      <ModalResult
-        show={isShowModalResult}
-        setShow={setIsShowModalResult}
-        dataModalResult={dataModalResult}
-      />
     </div>
   );
 };
