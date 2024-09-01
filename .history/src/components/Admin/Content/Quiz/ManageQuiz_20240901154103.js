@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./ManageQuiz.scss";
 import Select from "react-select";
 import { postCreateNewQuiz } from "../../../../services/apiService";
-import { toast } from "react-toastify";
 
 const options = [
   { value: "Easy", label: "Easy" },
@@ -23,20 +22,8 @@ const ManageQuiz = (props) => {
   };
 
   const handleSubmitQuiz = async () => {
-    //validate
-    if (!name || !description) {
-      toast.error("Name/Description is required");
-      return;
-    }
     let res = await postCreateNewQuiz(description, name, type?.value, image);
-    if (res && res.EC === 0) {
-      toast.success(res.EM);
-      setName("");
-      setDescription("");
-      setImage(null);
-    } else {
-      toast.error(res.EM);
-    }
+    console.log("res", res);
   };
   return (
     <div className="quiz-container">
@@ -76,7 +63,7 @@ const ManageQuiz = (props) => {
               <input
                 type="file"
                 className="form-control"
-                onChange={(e) => handleChangeFile(e)}
+                onChange={(e) => handleChangeFile()}
               />
             </div>
           </div>

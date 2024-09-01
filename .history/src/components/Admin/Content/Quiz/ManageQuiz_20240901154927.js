@@ -76,7 +76,7 @@ const ManageQuiz = (props) => {
               <input
                 type="file"
                 className="form-control"
-                onChange={(e) => handleChangeFile(e)}
+                onChange={(e) => handleChangeFile()}
               />
             </div>
           </div>
