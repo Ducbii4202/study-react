@@ -100,6 +100,9 @@ const ManageQuiz = (props) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <div className="title"></div>
+      <hr />
+
       <div className="list-detail">
         <TableQuiz />
       </div>

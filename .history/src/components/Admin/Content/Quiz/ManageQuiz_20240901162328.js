@@ -4,7 +4,7 @@ import Select from "react-select";
 import { postCreateNewQuiz } from "../../../../services/apiService";
 import { toast } from "react-toastify";
 import TableQuiz from "./TableQuiz";
-import { Accordion } from "react-bootstrap";
+import { Accordion } from "react-bootstrap/Accordion";
 
 const options = [
   { value: "Easy", label: "Easy" },
@@ -100,6 +100,9 @@ const ManageQuiz = (props) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <div className="title"></div>
+      <hr />
+
       <div className="list-detail">
         <TableQuiz />
       </div>

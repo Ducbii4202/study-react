@@ -19,7 +19,7 @@ const Admin = (props) => {
         <div className="admin-main">
           <PerfectScrollbar>
             <Outlet />
-          </PerfectScrollbar>
+          </PerfectScrollbar>{" "}
         </div>
       </div>
     </div>
