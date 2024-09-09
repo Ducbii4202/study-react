@@ -31,21 +31,15 @@
         .btn-add{
             padding-top: 15px;
             .icon-add{
-                font-size: 25px;
+                font-size: 30px;
                 color: rgb(230, 110, 182);
                 cursor: pointer;
-                &:hover {
-                    color:rgb(15, 96, 201)
-                }
             }
             .icon-remove{
                 margin-left: 10px;
-                font-size: 25px;
+                font-size: 30px;
                 color: rgb(233, 18, 111);
                 cursor: pointer;
-                &:hover{
-                    color: #ff7608;
-                }
             }
         }
 
@@ -65,21 +59,16 @@
             }
             .btn-group{
                 .icon-add{
-                font-size: 25px;
+                font-size: 30px;
                 color: rgb(15, 96, 201);
                 cursor: pointer;
-                &:hover {
-                    color:rgb(15, 176, 201);
-                }
             }
             .icon-remove{
                 margin-left: 10px;
-                font-size: 25px;
+                font-size: 30px;
                 color: rgb(232, 172, 8);
                 cursor: pointer;
-                &:hover {
-                    color:#d96200
-                }
+           
             }
         }
     }

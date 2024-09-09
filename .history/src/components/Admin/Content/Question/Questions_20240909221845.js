@@ -117,6 +117,7 @@ const Questions = (props) => {
                     <span onClick={() => handleAddRemoveQuestion("ADD", "")}>
                       <BsCloudPlus className="icon-add" />
                     </span>
+
                     <span
                       onClick={() =>
                         handleAddRemoveQuestion("REMOVE", questions.id)

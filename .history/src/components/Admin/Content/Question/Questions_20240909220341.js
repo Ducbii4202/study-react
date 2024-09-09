@@ -5,7 +5,6 @@ import { BsCloudPlus, BsCloudMinusFill } from "react-icons/bs";
 import { FaRegCalendarMinus, FaRegCalendarPlus } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
 const Questions = (props) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },
@@ -52,30 +51,6 @@ const Questions = (props) => {
     },
   ]);
   console.log("questions", questions);
-
-  const handleAddRemoveQuestion = (type, id) => {
-    if (type === "ADD") {
-      const newQuestion = {
-        id: uuidv4(),
-        description: "",
-        imageFile: "",
-        imageName: "",
-        answers: [
-          {
-            id: uuidv4(),
-            description: "",
-            isCorrect: false,
-          },
-        ],
-      };
-      setQuestions([...questions, newQuestion]);
-    }
-    if (type === "REMOVE") {
-      let questionClone = questions;
-      questionClone = questionClone.filter((item) => item.id !== id);
-      setQuestions(questionClone);
-    }
-  };
   return (
     <div className="questions-container">
       <div className="title">Manage Questions</div>
@@ -114,14 +89,10 @@ const Questions = (props) => {
                     <span>0 file is uploaded</span>
                   </div>
                   <div className="btn-add">
-                    <span onClick={() => handleAddRemoveQuestion("ADD", "")}>
+                    <span>
                       <BsCloudPlus className="icon-add" />
                     </span>
-                    <span
-                      onClick={() =>
-                        handleAddRemoveQuestion("REMOVE", questions.id)
-                      }
-                    >
+                    <span>
                       <BsCloudMinusFill className="icon-remove" />
                     </span>
                   </div>
@@ -137,7 +108,6 @@ const Questions = (props) => {
                         />
                         <div className="form-floating answer-name">
                           <input
-                            value={answer.description}
                             type="type"
                             className="form-control"
                             placeholder="name@example.com"

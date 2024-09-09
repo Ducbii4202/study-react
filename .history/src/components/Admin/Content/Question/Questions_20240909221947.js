@@ -117,13 +117,15 @@ const Questions = (props) => {
                     <span onClick={() => handleAddRemoveQuestion("ADD", "")}>
                       <BsCloudPlus className="icon-add" />
                     </span>
-                    <span
-                      onClick={() =>
-                        handleAddRemoveQuestion("REMOVE", questions.id)
-                      }
-                    >
-                      <BsCloudMinusFill className="icon-remove" />
-                    </span>
+                    {questions.length > 0 && (
+                      <span
+                        onClick={() =>
+                          handleAddRemoveQuestion("REMOVE", questions.id)
+                        }
+                      >
+                        <BsCloudMinusFill className="icon-remove" />
+                      </span>
+                    )}
                   </div>
                 </div>
                 {questions.answers &&

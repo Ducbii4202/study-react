@@ -5,7 +5,6 @@ import { BsCloudPlus, BsCloudMinusFill } from "react-icons/bs";
 import { FaRegCalendarMinus, FaRegCalendarPlus } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
 const Questions = (props) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },
@@ -53,29 +52,7 @@ const Questions = (props) => {
   ]);
   console.log("questions", questions);
 
-  const handleAddRemoveQuestion = (type, id) => {
-    if (type === "ADD") {
-      const newQuestion = {
-        id: uuidv4(),
-        description: "",
-        imageFile: "",
-        imageName: "",
-        answers: [
-          {
-            id: uuidv4(),
-            description: "",
-            isCorrect: false,
-          },
-        ],
-      };
-      setQuestions([...questions, newQuestion]);
-    }
-    if (type === "REMOVE") {
-      let questionClone = questions;
-      questionClone = questionClone.filter((item) => item.id !== id);
-      setQuestions(questionClone);
-    }
-  };
+  const handleAddRemoveQuestion = (type, id) => {};
   return (
     <div className="questions-container">
       <div className="title">Manage Questions</div>

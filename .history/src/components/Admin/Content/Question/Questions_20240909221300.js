@@ -5,7 +5,7 @@ import { BsCloudPlus, BsCloudMinusFill } from "react-icons/bs";
 import { FaRegCalendarMinus, FaRegCalendarPlus } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
+import _from 'lodash'
 const Questions = (props) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },
@@ -71,9 +71,7 @@ const Questions = (props) => {
       setQuestions([...questions, newQuestion]);
     }
     if (type === "REMOVE") {
-      let questionClone = questions;
-      questionClone = questionClone.filter((item) => item.id !== id);
-      setQuestions(questionClone);
+
     }
   };
   return (

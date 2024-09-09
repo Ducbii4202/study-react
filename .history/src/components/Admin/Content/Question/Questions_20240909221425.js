@@ -73,7 +73,6 @@ const Questions = (props) => {
     if (type === "REMOVE") {
       let questionClone = questions;
       questionClone = questionClone.filter((item) => item.id !== id);
-      setQuestions(questionClone);
     }
   };
   return (
