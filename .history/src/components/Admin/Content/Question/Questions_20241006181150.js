@@ -8,41 +8,36 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 
 const Questions = (props) => {
-  // Các tùy chọn của select box để chọn quiz
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
-
-  // Khởi tạo state lưu quiz đã chọn và danh sách câu hỏi
   const [selectedQuiz, setSelectedQuiz] = useState({});
   const [questions, setQuestions] = useState([
     {
-      id: uuidv4(), // ID duy nhất của câu hỏi
-      description: "question 1", // Mô tả của câu hỏi
-      imageFile: "", // Tệp hình ảnh (nếu có)
-      imageName: "", // Tên tệp hình ảnh (nếu có)
+      id: uuidv4(),
+      description: "question 1",
+      imageFile: "",
+      imageName: "",
       answers: [
         {
-          id: uuidv4(), // ID duy nhất của câu trả lời
-          description: "answer 1", // Mô tả câu trả lời
-          isCorrect: false, // Đánh dấu câu trả lời đúng hoặc sai
+          id: uuidv4(),
+          description: "answer 1",
+          isCorrect: false,
+        },
+        {
+          id: uuidv4(),
+          description: "answer 2",
+          isCorrect: false,
         },
       ],
     },
   ]);
   console.log("questions", questions);
 
-  /**
-   * Hàm `handleAddRemoveQuestion`
-   * Dùng để thêm hoặc xóa câu hỏi.
-   * @param {string} type - Loại hành động ('ADD' hoặc 'REMOVE').
-   * @param {string} id - ID của câu hỏi (dùng khi xóa).
-   */
   const handleAddRemoveQuestion = (type, id) => {
     if (type === "ADD") {
-      // Thêm một câu hỏi mới với các thông tin mặc định
       const newQuestion = {
         id: uuidv4(),
         description: "",
@@ -56,69 +51,58 @@ const Questions = (props) => {
           },
         ],
       };
-      setQuestions([...questions, newQuestion]); // Cập nhật state câu hỏi
+      setQuestions([...questions, newQuestion]);
     }
     if (type === "REMOVE") {
-      // Xóa câu hỏi dựa trên ID
       let questionClone = questions;
       questionClone = questionClone.filter((item) => item.id !== id);
       setQuestions(questionClone);
     }
   };
-
-  /**
-   * Hàm `handleAddRemoveQuestionAnswer`
-   * Dùng để thêm hoặc xóa câu trả lời cho một câu hỏi cụ thể.
-   * @param {string} type - Loại hành động ('ADD' hoặc 'REMOVE').
-   * @param {string} questionId - ID của câu hỏi chứa câu trả lời.
-   * @param {string} answerId - ID của câu trả lời (dùng khi xóa).
-   */
-  const handleAddRemoveQuestionAnswer = (type, questionId, answerId) => {
-    // Sao chép mảng câu hỏi để xử lý (tránh thay đổi trực tiếp state)
-    const questionClone = _.cloneDeep(questions);
-    const questionIndex = questionClone.findIndex((q) => q.id === questionId);
-
+  const handleAddRemoveQuestionAnswer = (type, id) => {
     if (type === "ADD") {
-      // Thêm một câu trả lời mới với thông tin mặc định
-      const newAnswer = {
+      const newQuestion = {
         id: uuidv4(),
         description: "",
-        isCorrect: false,
+        imageFile: "",
+        imageName: "",
+        answers: [
+          {
+            id: uuidv4(),
+            description: "",
+            isCorrect: false,
+          },
+        ],
       };
-      questionClone[questionIndex].answers.push(newAnswer);
-    } else if (type === "REMOVE" && answerId) {
-      // Xóa câu trả lời dựa trên ID của câu trả lời
-      questionClone[questionIndex].answers = questionClone[
-        questionIndex
-      ].answers.filter((answer) => answer.id !== answerId);
+      setQuestions([...questions, newQuestion]);
     }
-    setQuestions(questionClone); // Cập nhật lại state
+    if (type === "REMOVE") {
+      let questionClone = questions;
+      questionClone = questionClone.filter((item) => item.id !== id);
+      setQuestions(questionClone);
+    }
   };
-
   return (
     <div className="questions-container">
       <div className="title">Manage Questions</div>
       <hr />
       <div className="add-new-questions">
-        {/* Chọn quiz */}
         <div className="col-6 from-group">
           <label className="mb-2">Select Quiz</label>
           <Select
-            value={selectedQuiz} // Giá trị hiện tại của quiz đã chọn
-            onChange={setSelectedQuiz} // Hàm xử lý khi chọn quiz
-            options={options} // Tùy chọn trong dropdown
+            value={selectedQuiz}
+            onChange={setSelectedQuiz}
+            options={options}
           />
         </div>
         <div className="mt-3 mb-2">Add questions:</div>
 
-        {/* Danh sách câu hỏi */}
         {questions &&
           questions.length > 0 &&
           questions.map((question, index) => {
             return (
               <div key={question.id} className="q-main mb-4">
                 <div className="questions-content">
-                  {/* Mô tả của câu hỏi */}
                   <div className="form-floating description">
                     <input
                       type="text"
@@ -127,14 +111,12 @@ const Questions = (props) => {
                       value={question.description}
                       onChange={(e) => {
                         let questionClone = _.cloneDeep(questions);
-                        questionClone[index].description = e.target.value; // Cập nhật mô tả câu hỏi
+                        questionClone[index].description = e.target.value;
                         setQuestions(questionClone);
                       }}
                     />
                     <label>Question {index + 1}'s description</label>
                   </div>
-
-                  {/* Tải lên hình ảnh cho câu hỏi */}
                   <div className="group-upload">
                     <label>
                       <FaRegImage className="label-up" />
@@ -142,8 +124,6 @@ const Questions = (props) => {
                     <input type={"file"} hidden />
                     <span>0 file is uploaded</span>
                   </div>
-
-                  {/* Thêm hoặc xóa câu hỏi */}
                   <div className="btn-add">
                     <span onClick={() => handleAddRemoveQuestion("ADD", "")}>
                       <BsCloudPlus className="icon-add" />
@@ -159,14 +139,11 @@ const Questions = (props) => {
                     )}
                   </div>
                 </div>
-
-                {/* Danh sách các câu trả lời cho câu hỏi hiện tại */}
                 {question.answers &&
                   question.answers.length > 0 &&
                   question.answers.map((answer, index) => {
                     return (
                       <div key={answer.id} className="answers-content">
-                        {/* Checkbox đánh dấu câu trả lời đúng/sai */}
                         <input
                           className="form-check-input iscorrect"
                           type="checkbox"
@@ -179,8 +156,6 @@ const Questions = (props) => {
                             setQuestions(questionClone);
                           }}
                         />
-
-                        {/* Mô tả câu trả lời */}
                         <div className="form-floating answer-name">
                           <input
                             value={answer.description}
@@ -197,29 +172,13 @@ const Questions = (props) => {
                           />
                           <label>Answer {index + 1}</label>
                         </div>
-
-                        {/* Thêm hoặc xóa câu trả lời */}
                         <div className="btn-group">
-                          <span
-                            onClick={() =>
-                              handleAddRemoveQuestionAnswer("ADD", question.id)
-                            }
-                          >
+                          <span>
                             <FaRegCalendarPlus className="icon-add" />
                           </span>
-                          {question.answers.length > 1 && (
-                            <span
-                              onClick={() =>
-                                handleAddRemoveQuestionAnswer(
-                                  "REMOVE",
-                                  question.id,
-                                  answer.id
-                                )
-                              }
-                            >
-                              <FaRegCalendarMinus className="icon-remove" />
-                            </span>
-                          )}
+                          <span>
+                            <FaRegCalendarMinus className="icon-remove" />
+                          </span>
                         </div>
                       </div>
                     );

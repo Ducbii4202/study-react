@@ -29,6 +29,11 @@ const Questions = (props) => {
           description: "answer 1", // Mô tả câu trả lời
           isCorrect: false, // Đánh dấu câu trả lời đúng hoặc sai
         },
+        {
+          id: uuidv4(),
+          description: "answer 2",
+          isCorrect: false,
+        },
       ],
     },
   ]);

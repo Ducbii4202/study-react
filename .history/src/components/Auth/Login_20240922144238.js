@@ -57,7 +57,7 @@ const Login = (props) => {
         <span>Don't have an account yet?</span>
         <button onClick={() => navigate("/register")}>Sign Up</button>
       </div>
-      <div className="title col-4 mx-auto">Wordaholic</div>
+      <div className="title col-4 mx-auto">Wordaholic &amp; Bii</div>
       <div className="welcome col-4 mx-auto">Hello, who's this?</div>
       <div className="content-form col-4 mx-auto">
         <div className="form-group">
