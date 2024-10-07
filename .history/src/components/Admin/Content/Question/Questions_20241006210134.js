@@ -157,11 +157,7 @@ const Questions = (props) => {
                         handleOnChangeFileQuestion(question.id, e);
                       }}
                     />
-                    <span>
-                      {question.imageName
-                        ? question.imageName
-                        : "0 file is uploaded"}
-                    </span>
+                    <span>0 file is uploaded</span>
                   </div>
 
                   {/* Thêm hoặc xóa câu hỏi */}

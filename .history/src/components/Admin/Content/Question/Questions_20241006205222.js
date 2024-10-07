@@ -95,16 +95,6 @@ const Questions = (props) => {
     setQuestions(questionClone); // Cập nhật lại state
   };
 
-  const handleOnChangeFileQuestion = (questionId, e) => {
-    let questionClone = _.cloneDeep(questions);
-    let index = questionClone.findIndex((item) => item.id === questionId);
-    if (index > -1 && e.target && e.target.files && e.target.files[0]) {
-      questionClone[index].imageFile = e.target.files[0];
-      questionClone[index].imageName = e.target.files[0].name;
-      setQuestions(questionClone);
-    }
-  };
-
   return (
     <div className="questions-container">
       <div className="title">Manage Questions</div>
@@ -146,22 +136,17 @@ const Questions = (props) => {
 
                   {/* Tải lên hình ảnh cho câu hỏi */}
                   <div className="group-upload">
-                    <label htmlFor={`${question.id}`}>
+                    <label>
                       <FaRegImage className="label-up" />
                     </label>
                     <input
-                      id={`${question.id}`}
                       type={"file"}
                       hidden
                       onChange={(e) => {
                         handleOnChangeFileQuestion(question.id, e);
                       }}
                     />
-                    <span>
-                      {question.imageName
-                        ? question.imageName
-                        : "0 file is uploaded"}
-                    </span>
+                    <span>0 file is uploaded</span>
                   </div>
 
                   {/* Thêm hoặc xóa câu hỏi */}

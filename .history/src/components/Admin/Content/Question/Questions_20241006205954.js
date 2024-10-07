@@ -100,7 +100,7 @@ const Questions = (props) => {
     let index = questionClone.findIndex((item) => item.id === questionId);
     if (index > -1 && e.target && e.target.files && e.target.files[0]) {
       questionClone[index].imageFile = e.target.files[0];
-      questionClone[index].imageName = e.target.files[0].name;
+      // questionClone[index].imageName = value;
       setQuestions(questionClone);
     }
   };
@@ -157,11 +157,7 @@ const Questions = (props) => {
                         handleOnChangeFileQuestion(question.id, e);
                       }}
                     />
-                    <span>
-                      {question.imageName
-                        ? question.imageName
-                        : "0 file is uploaded"}
-                    </span>
+                    <span>0 file is uploaded</span>
                   </div>
 
                   {/* Thêm hoặc xóa câu hỏi */}
