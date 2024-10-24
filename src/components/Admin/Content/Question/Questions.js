@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import "./Questions.scss";
 import { BsCloudPlus, BsCloudMinusFill } from "react-icons/bs";
-import { FaRegCalendarMinus, FaRegCalendarPlus } from "react-icons/fa";
-import { FaRegImage } from "react-icons/fa";
+import {
+  FaRegCalendarMinus,
+  FaRegCalendarPlus,
+  FaRegImage,
+} from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import _, { flatMap } from "lodash";
+import _ from "lodash";
 import Lightbox from "react-awesome-lightbox";
 import {
   getAllQuizForAdmin,
@@ -15,7 +18,7 @@ import {
 import { toast } from "react-toastify";
 
 const Questions = () => {
-  const initQuestions = [
+  const initialQuestions = [
     {
       id: uuidv4(),
       description: "question 1",
@@ -30,33 +33,34 @@ const Questions = () => {
       ],
     },
   ];
+
+  // State for selected quiz, list of quizzes, questions, and image preview
   const [selectedQuiz, setSelectedQuiz] = useState({});
   const [listQuiz, setListQuiz] = useState([]);
-  useEffect(() => {
-    fetchQuiz();
-  }, []);
-
-  const fetchQuiz = async () => {
-    let res = await getAllQuizForAdmin();
-    if (res && res.EC === 0) {
-      let newQuiz = res.DT.map((item) => {
-        return {
-          value: item.id,
-          label: `${item.id} - ${item.description}`,
-        };
-      });
-      setListQuiz(newQuiz);
-    }
-  };
-  const [questions, setQuestions] = useState(initQuestions);
-
+  const [questions, setQuestions] = useState(initialQuestions);
   const [isPreviewImage, setIsPreviewImage] = useState(false);
   const [dataImageReview, setDataImageReview] = useState({
     title: "",
     url: "",
   });
 
-  // Add or remove questions
+  // Fetch quizzes when component mounts
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
+
+  const fetchQuizzes = async () => {
+    let res = await getAllQuizForAdmin();
+    if (res && res.EC === 0) {
+      const quizOptions = res.DT.map((quiz) => ({
+        value: quiz.id,
+        label: `${quiz.id} - ${quiz.description}`,
+      }));
+      setListQuiz(quizOptions);
+    }
+  };
+
+  // Add or remove a question
   const handleAddRemoveQuestion = (type, id) => {
     if (type === "ADD") {
       const newQuestion = {
@@ -74,107 +78,116 @@ const Questions = () => {
       };
       setQuestions([...questions, newQuestion]);
     } else if (type === "REMOVE") {
-      const updatedQuestions = questions.filter((q) => q.id !== id);
+      setQuestions(questions.filter((q) => q.id !== id));
+    }
+  };
+
+  // Add or remove an answer for a specific question
+  const handleAddRemoveQuestionAnswer = (type, questionId, answerId) => {
+    const updatedQuestions = _.cloneDeep(questions);
+    const questionIndex = updatedQuestions.findIndex(
+      (q) => q.id === questionId
+    );
+
+    if (type === "ADD") {
+      updatedQuestions[questionIndex].answers.push({
+        id: uuidv4(),
+        description: "",
+        isCorrect: false,
+      });
+    } else if (type === "REMOVE") {
+      updatedQuestions[questionIndex].answers = updatedQuestions[
+        questionIndex
+      ].answers.filter((answer) => answer.id !== answerId);
+    }
+
+    setQuestions(updatedQuestions);
+  };
+
+  // Handle file input for questions (for image upload)
+  const handleOnChangeFileQuestion = (questionId, e) => {
+    if (e.target.files && e.target.files[0]) {
+      const updatedQuestions = _.cloneDeep(questions);
+      const questionIndex = updatedQuestions.findIndex(
+        (q) => q.id === questionId
+      );
+
+      updatedQuestions[questionIndex].imageFile = e.target.files[0];
+      updatedQuestions[questionIndex].imageName = e.target.files[0].name;
       setQuestions(updatedQuestions);
     }
   };
 
-  // Add or remove answers for a specific question
-  const handleAddRemoveQuestionAnswer = (type, questionId, answerId) => {
-    const questionClone = _.cloneDeep(questions);
-    const questionIndex = questionClone.findIndex((q) => q.id === questionId);
-
-    if (type === "ADD") {
-      const newAnswer = {
-        id: uuidv4(),
-        description: "",
-        isCorrect: false,
-      };
-      questionClone[questionIndex].answers.push(newAnswer);
-    } else if (type === "REMOVE") {
-      questionClone[questionIndex].answers = questionClone[
-        questionIndex
-      ].answers.filter((answer) => answer.id !== answerId);
-    }
-    setQuestions(questionClone);
-  };
-
-  // Handle file input for questions
-  const handleOnChangeFileQuestion = (questionId, e) => {
-    if (e.target.files && e.target.files[0]) {
-      const questionClone = _.cloneDeep(questions);
-      const index = questionClone.findIndex((item) => item.id === questionId);
-
-      questionClone[index].imageFile = e.target.files[0];
-      questionClone[index].imageName = e.target.files[0].name;
-      setQuestions(questionClone);
-    }
-  };
-
-  // Save the questions (you can implement the logic to send to API or other handlers)
+  // Save the questions and answers for the quiz
   const handleSaveQuestionsForQuiz = async () => {
-    //validate data
     if (_.isEmpty(selectedQuiz)) {
       toast.error("Please choose a Quiz!");
       return;
     }
-    //validate answer
+
+    // Validate all answers
     let isValidAnswer = true;
-    let indexQ = 0,
-      indexA = 0;
+    let questionIndex = 0,
+      answerIndex = 0;
     for (let i = 0; i < questions.length; i++) {
       for (let j = 0; j < questions[i].answers.length; j++) {
         if (!questions[i].answers[j].description) {
           isValidAnswer = false;
-          indexA = j;
+          answerIndex = j;
           break;
         }
       }
-      indexQ = i;
-      if (isValidAnswer === false) break;
+      if (!isValidAnswer) {
+        questionIndex = i;
+        break;
+      }
     }
 
-    if (isValidAnswer === false) {
-      toast.error(`Not empty Answer ${indexA + 1} at Question ${indexQ + 1}`);
+    if (!isValidAnswer) {
+      toast.error(
+        `Answer ${answerIndex + 1} in Question ${
+          questionIndex + 1
+        } cannot be empty.`
+      );
       return;
     }
 
-    //validate question
-    let isValidQ = true;
-    let indexQ1 = 0;
-
+    // Validate all questions
+    let isValidQuestion = true;
     for (let i = 0; i < questions.length; i++) {
       if (!questions[i].description) {
-        isValidQ = false;
-        indexQ1 = i;
+        isValidQuestion = false;
+        questionIndex = i;
         break;
-      }
-      if (isValidQ === false) {
-        toast.error(`Not empty description for Question ${indexQ1 + 1}`);
-        return;
       }
     }
 
+    if (!isValidQuestion) {
+      toast.error(`Question ${questionIndex + 1} description cannot be empty.`);
+      return;
+    }
+
+    // Submit questions and answers
     for (const question of questions) {
-      const q = await postCreateNewQuestionForQuiz(
+      const qRes = await postCreateNewQuestionForQuiz(
         +selectedQuiz.value,
         question.description,
         question.imageFile
       );
-      //submit answer
-      for (const answer of questions.answers) {
+      for (const answer of question.answers) {
         await postCreateNewAnswerForQuestion(
           answer.description,
           answer.isCorrect,
-          q.DT.id
+          qRes.DT.id
         );
       }
     }
-    toast.success("Create questions and answers succed!");
-    setQuestions(initQuestions);
+
+    toast.success("Questions and answers saved successfully!");
+    setQuestions(initialQuestions); // Reset the questions form
   };
 
-  // Handle image preview
+  // Handle image preview for a question
   const handleReviewImage = (questionId) => {
     const question = questions.find((q) => q.id === questionId);
     if (question && question.imageFile) {
@@ -191,7 +204,7 @@ const Questions = () => {
       <div className="title">Manage Questions</div>
       <hr />
       <div className="add-new-questions">
-        <div className="col-6 from-group">
+        <div className="col-6 form-group">
           <label className="mb-2">Select Quiz</label>
           <Select
             value={selectedQuiz}
@@ -199,6 +212,7 @@ const Questions = () => {
             options={listQuiz}
           />
         </div>
+
         <div className="mt-3 mb-2">Add questions:</div>
 
         {questions.map((question, qIndex) => (
@@ -235,9 +249,7 @@ const Questions = () => {
                     question.imageName && handleReviewImage(question.id)
                   }
                 >
-                  {question.imageName
-                    ? question.imageName
-                    : "0 file is uploaded"}
+                  {question.imageName || "0 file is uploaded"}
                 </span>
               </div>
 
