@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import "./Questions.scss";
 import { BsCloudPlus, BsCloudMinusFill } from "react-icons/bs";
 import { FaRegCalendarMinus, FaRegCalendarPlus } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import _ from "lodash";
+import _, { flatMap } from "lodash";
 import Lightbox from "react-awesome-lightbox";
-
-// Sample quiz options
-const quizOptions = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
+import {
+  getAllQuizForAdmin,
+  postCreateNewAnswerForQuestion,
+  postCreateNewQuestionForQuiz,
+} from "../../../../services/apiService";
+import { toast } from "react-toastify";
 
 const Questions = () => {
-  const [selectedQuiz, setSelectedQuiz] = useState({});
-  const [questions, setQuestions] = useState([
+  const initQuestions = [
     {
       id: uuidv4(),
       description: "question 1",
@@ -31,7 +29,26 @@ const Questions = () => {
         },
       ],
     },
-  ]);
+  ];
+  const [selectedQuiz, setSelectedQuiz] = useState({});
+  const [listQuiz, setListQuiz] = useState([]);
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
+
+  const fetchQuiz = async () => {
+    let res = await getAllQuizForAdmin();
+    if (res && res.EC === 0) {
+      let newQuiz = res.DT.map((item) => {
+        return {
+          value: item.id,
+          label: `${item.id} - ${item.description}`,
+        };
+      });
+      setListQuiz(newQuiz);
+    }
+  };
+  const [questions, setQuestions] = useState(initQuestions);
 
   const [isPreviewImage, setIsPreviewImage] = useState(false);
   const [dataImageReview, setDataImageReview] = useState({
@@ -95,8 +112,66 @@ const Questions = () => {
   };
 
   // Save the questions (you can implement the logic to send to API or other handlers)
-  const handleSaveQuestionsForQuiz = () => {
-    console.log("Saving questions", questions);
+  const handleSaveQuestionsForQuiz = async () => {
+    //validate data
+    if (_.isEmpty(selectedQuiz)) {
+      toast.error("Please choose a Quiz!");
+      return;
+    }
+    //validate answer
+    let isValidAnswer = true;
+    let indexQ = 0,
+      indexA = 0;
+    for (let i = 0; i < questions.length; i++) {
+      for (let j = 0; j < questions[i].answers.length; j++) {
+        if (!questions[i].answers[j].description) {
+          isValidAnswer = false;
+          indexA = j;
+          break;
+        }
+      }
+      indexQ = i;
+      if (isValidAnswer === false) break;
+    }
+
+    if (isValidAnswer === false) {
+      toast.error(`Not empty Answer ${indexA + 1} at Question ${indexQ + 1}`);
+      return;
+    }
+
+    //validate question
+    let isValidQ = true;
+    let indexQ1 = 0;
+
+    for (let i = 0; i < questions.length; i++) {
+      if (!questions[i].description) {
+        isValidQ = false;
+        indexQ1 = i;
+        break;
+      }
+      if (isValidQ === false) {
+        toast.error(`Not empty description for Question ${indexQ1 + 1}`);
+        return;
+      }
+    }
+
+    for (const question of questions) {
+      const q = await postCreateNewQuestionForQuiz(
+        +selectedQuiz.value,
+        question.description,
+        question.imageFile
+      );
+      //submit answer
+      for (const answer of questions.answers) {
+        await postCreateNewAnswerForQuestion(
+          answer.description,
+          answer.isCorrect,
+          q.DT.id
+        );
+      }
+    }
+    toast.success("Create questions and answers succed!");
+    setQuestions(initQuestions);
   };
 
   // Handle image preview
@@ -121,7 +196,7 @@ const Questions = () => {
           <Select
             value={selectedQuiz}
             onChange={setSelectedQuiz}
-            options={quizOptions}
+            options={listQuiz}
           />
         </div>
         <div className="mt-3 mb-2">Add questions:</div>
