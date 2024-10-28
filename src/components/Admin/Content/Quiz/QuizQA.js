@@ -14,6 +14,7 @@ import {
   getAllQuizForAdmin,
   postCreateNewAnswerForQuestion,
   postCreateNewQuestionForQuiz,
+  getQuizWithQA,
 } from "../../../../services/apiService";
 import { toast } from "react-toastify";
 
@@ -34,7 +35,6 @@ const QuizQA = (props) => {
     },
   ];
 
-  // State for selected quiz, list of quizzes, questions, and image preview
   const [selectedQuiz, setSelectedQuiz] = useState({});
   const [listQuiz, setListQuiz] = useState([]);
   const [questions, setQuestions] = useState(initialQuestions);
@@ -44,10 +44,42 @@ const QuizQA = (props) => {
     url: "",
   });
 
-  // Fetch quizzes when component mounts
   useEffect(() => {
     fetchQuizzes();
   }, []);
+
+  useEffect(() => {
+    if (selectedQuiz && selectedQuiz.value) {
+      fetchQuizWithQA();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedQuiz]);
+
+  const urltiFile = async (url, filename, mimeType) => {
+    const response = await fetch(url);
+    const buffer = await response.arrayBuffer();
+    return new File([buffer], filename, { type: mimeType });
+  };
+
+  const fetchQuizWithQA = async () => {
+    let rs = await getQuizWithQA(selectedQuiz.value);
+    if (rs && rs.EC === 0) {
+      let newQA = await Promise.all(
+        rs.DT.qa.map(async (q) => {
+          if (q.imageFile) {
+            q.imageFile = await urltiFile(
+              `data:image/png;base64,${q.imageFile}`,
+              `Question-${q.id}`,
+              "image/png"
+            );
+          }
+          return q;
+        })
+      );
+
+      setQuestions(newQA);
+    }
+  };
 
   const fetchQuizzes = async () => {
     let res = await getAllQuizForAdmin();
@@ -60,7 +92,6 @@ const QuizQA = (props) => {
     }
   };
 
-  // Add or remove a question
   const handleAddRemoveQuestion = (type, id) => {
     if (type === "ADD") {
       const newQuestion = {
@@ -82,7 +113,6 @@ const QuizQA = (props) => {
     }
   };
 
-  // Add or remove an answer for a specific question
   const handleAddRemoveQuestionAnswer = (type, questionId, answerId) => {
     const updatedQuestions = _.cloneDeep(questions);
     const questionIndex = updatedQuestions.findIndex(
@@ -104,7 +134,6 @@ const QuizQA = (props) => {
     setQuestions(updatedQuestions);
   };
 
-  // Handle file input for questions (for image upload)
   const handleOnChangeFileQuestion = (questionId, e) => {
     if (e.target.files && e.target.files[0]) {
       const updatedQuestions = _.cloneDeep(questions);
@@ -118,53 +147,24 @@ const QuizQA = (props) => {
     }
   };
 
-  // Save the questions and answers for the quiz
   const handleSaveQuestionsForQuiz = async () => {
     if (_.isEmpty(selectedQuiz)) {
       toast.error("Please choose a Quiz!");
       return;
     }
 
-    // Validate all answers
-    let isValidAnswer = true;
-    let questionIndex = 0,
-      answerIndex = 0;
-    for (let i = 0; i < questions.length; i++) {
-      for (let j = 0; j < questions[i].answers.length; j++) {
-        if (!questions[i].answers[j].description) {
-          isValidAnswer = false;
-          answerIndex = j;
-          break;
-        }
-      }
-      if (!isValidAnswer) {
-        questionIndex = i;
-        break;
-      }
-    }
-
-    if (!isValidAnswer) {
-      toast.error(
-        `Answer ${answerIndex + 1} in Question ${
-          questionIndex + 1
-        } cannot be empty.`
-      );
-      return;
-    }
-
-    // Validate all questions
-    let isValidQuestion = true;
+    // Validate answers and questions
     for (let i = 0; i < questions.length; i++) {
       if (!questions[i].description) {
-        isValidQuestion = false;
-        questionIndex = i;
-        break;
+        toast.error(`Question ${i + 1} description cannot be empty.`);
+        return;
       }
-    }
-
-    if (!isValidQuestion) {
-      toast.error(`Question ${questionIndex + 1} description cannot be empty.`);
-      return;
+      for (let j = 0; j < questions[i].answers.length; j++) {
+        if (!questions[i].answers[j].description) {
+          toast.error(`Answer ${j + 1} in Question ${i + 1} cannot be empty.`);
+          return;
+        }
+      }
     }
 
     // Submit questions and answers
@@ -184,10 +184,9 @@ const QuizQA = (props) => {
     }
 
     toast.success("Questions and answers saved successfully!");
-    setQuestions(initialQuestions); // Reset the questions form
+    setQuestions(initialQuestions);
   };
 
-  // Handle image preview for a question
   const handleReviewImage = (questionId) => {
     const question = questions.find((q) => q.id === questionId);
     if (question && question.imageFile) {

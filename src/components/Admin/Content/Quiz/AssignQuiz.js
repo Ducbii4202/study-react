@@ -3,7 +3,9 @@ import Select from "react-select";
 import {
   getAllQuizForAdmin,
   getAllUser,
+  postAssignQuiz,
 } from "../../../../services/apiService";
+import { toast } from "react-toastify";
 
 const AssignQuiz = () => {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
@@ -23,7 +25,7 @@ const AssignQuiz = () => {
       if (res && res.EC === 0) {
         const quizOptions = res.DT.map((quiz) => ({
           value: quiz.id,
-          label: `${quiz.id} - ${quiz.description}`,
+          label: `${quiz.id} - ${quiz.name}`,
         }));
         setListQuiz(quizOptions);
       }
@@ -49,12 +51,24 @@ const AssignQuiz = () => {
   };
 
   // Handle assign button click
-  const handleAssign = () => {
-    if (selectedQuiz && selectedUser) {
-      // Implement assignment logic here
-      console.log("Assigning quiz:", selectedQuiz, "to user:", selectedUser);
-    } else {
-      alert("Please select both a quiz and a user.");
+  const handleAssign = async () => {
+    if (!selectedQuiz || !selectedUser) {
+      toast.error("Please select both a quiz and a user.");
+      return;
+    }
+
+    try {
+      const res = await postAssignQuiz(selectedQuiz.value, selectedUser.value);
+      if (res && res.EC === 0) {
+        toast.success("Quiz assigned successfully!");
+        setSelectedQuiz(null);
+        setSelectedUser(null);
+      } else {
+        toast.error(res?.EM || "Failed to assign quiz.");
+      }
+    } catch (error) {
+      console.error("Error assigning quiz:", error);
+      toast.error("An error occurred while assigning the quiz.");
     }
   };
 
@@ -81,7 +95,7 @@ const AssignQuiz = () => {
       </div>
 
       <div className="col-12 d-flex justify-content-center">
-        <button className="btn btn-primary" onClick={handleAssign}>
+        <button className="btn btn-warning" onClick={handleAssign}>
           Assign Quiz
         </button>
       </div>

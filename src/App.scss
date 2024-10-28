@@ -78,6 +78,9 @@ body {
       }
     }
   }
+  .app-container{
+    height: calc(100vh - 50px);
+  }
 }
 video {
   position: fixed;;
