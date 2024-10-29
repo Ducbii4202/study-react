@@ -12,9 +12,8 @@ import _ from "lodash";
 import Lightbox from "react-awesome-lightbox";
 import {
   getAllQuizForAdmin,
-  postCreateNewAnswerForQuestion,
-  postCreateNewQuestionForQuiz,
   getQuizWithQA,
+  postUpsertQA,
 } from "../../../../services/apiService";
 import { toast } from "react-toastify";
 
@@ -168,24 +167,31 @@ const QuizQA = (props) => {
     }
 
     // Submit questions and answers
-    for (const question of questions) {
-      const qRes = await postCreateNewQuestionForQuiz(
-        +selectedQuiz.value,
-        question.description,
-        question.imageFile
-      );
-      for (const answer of question.answers) {
-        await postCreateNewAnswerForQuestion(
-          answer.description,
-          answer.isCorrect,
-          qRes.DT.id
-        );
+    let questionClone = _.cloneDeep(questions);
+    for (let i = 0; i < questionClone.length; i++) {
+      if (questionClone[i].imageFile) {
+        questionClone[i].imageFile = await toBase64(questionClone[i].imageFile);
       }
     }
 
-    toast.success("Questions and answers saved successfully!");
-    setQuestions(initialQuestions);
+    let res = await postUpsertQA({
+      quizId: selectedQuiz.value,
+      questions: questionClone,
+    });
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+      fetchQuizWithQA();
+    }
+    // setQuestions(initialQuestions);
   };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const render = new FileReader();
+      render.readAsDataURL(file);
+      render.onload = () => resolve(render.result);
+      render.onerror = (error) => reject(error);
+    });
 
   const handleReviewImage = (questionId) => {
     const question = questions.find((q) => q.id === questionId);
