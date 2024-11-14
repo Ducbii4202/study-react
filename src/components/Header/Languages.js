@@ -1,16 +1,27 @@
 import React from "react";
 import { NavDropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
-const Languages = (props) => {
+const Languages = () => {
+  const { i18n } = useTranslation();
+
+  const handleChangeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
     <>
       <NavDropdown
-        title="Viet Nam"
+        title={i18n.language === "vi" ? "Viet Nam" : "English"}
         id="basic-nav-dropdown2"
         className="languages"
       >
-        <NavDropdown.Item>English</NavDropdown.Item>
-        <NavDropdown.Item>Viet Nam</NavDropdown.Item>
+        <NavDropdown.Item onClick={() => handleChangeLanguage("en")}>
+          English
+        </NavDropdown.Item>
+        <NavDropdown.Item onClick={() => handleChangeLanguage("vi")}>
+          Viet Nam
+        </NavDropdown.Item>
       </NavDropdown>
     </>
   );
