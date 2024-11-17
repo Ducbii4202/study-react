@@ -12,58 +12,64 @@ const DetailQuiz = () => {
   const location = useLocation();
 
   const [dataQuiz, setDataQuiz] = useState([]);
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isShowModalResult, setIsShowModalResult] = useState(false);
   const [dataModalResult, setDataModalResult] = useState({});
 
   useEffect(() => {
     fetchQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quizId]);
 
   const fetchQuestions = async () => {
     try {
       const res = await getDataQuiz(quizId);
       if (res && res.EC === 0) {
-        const data = _(res.DT)
+        const groupedQuestions = _(res.DT)
           .groupBy("id")
-          .map((value, key) => {
-            const answers = value.map((item) => ({
-              ...item.answers,
-              isSelected: false,
-            }));
+          .map((questions, key) => {
+            const answers = _.orderBy(
+              questions.map((item) => ({
+                ...item.answers,
+                isSelected: false,
+              })),
+              ["id"],
+              ["asc"]
+            );
             return {
               questionId: key,
               answers,
-              questionDescription: value[0].description,
-              image: value[0].image,
+              questionDescription: questions[0].description,
+              image: questions[0].image,
             };
           })
           .value();
-        setDataQuiz(data);
+        setDataQuiz(groupedQuestions);
       } else {
-        console.error("Error fetching quiz data:", res);
+        alert("Error fetching quiz data: " + res?.EM || "Unknown error.");
       }
     } catch (error) {
       console.error("Error fetching quiz data:", error);
+      alert("An error occurred while fetching quiz data.");
     }
   };
 
   const handlePrev = () => {
-    if (index > 0) setIndex(index - 1);
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
 
   const handleNext = () => {
-    if (dataQuiz.length > index + 1) setIndex(index + 1);
+    if (currentIndex < dataQuiz.length - 1) setCurrentIndex(currentIndex + 1);
   };
 
   const handleFinishQuiz = async () => {
     const payload = {
-      quizId: +quizId,
+      quizId: Number(quizId),
       answers: dataQuiz.map((question) => ({
-        questionId: +question.questionId,
+        questionId: Number(question.questionId),
         userAnswerId: question.answers
-          .filter((a) => a.isSelected)
-          .map((a) => a.id),
+          .filter((answer) => answer.isSelected)
+          .map((answer) => answer.id),
       })),
     };
 
@@ -77,17 +83,18 @@ const DetailQuiz = () => {
         });
         setIsShowModalResult(true);
       } else {
-        alert("Something went wrong with your answers submission.");
+        alert("Error submitting answers: " + res?.EM || "Unknown error.");
       }
     } catch (error) {
       console.error("Error submitting quiz answers:", error);
+      alert("An error occurred while submitting your answers.");
     }
   };
 
   const handleCheckBox = (answerId, questionId) => {
-    const dataQuizClone = _.cloneDeep(dataQuiz);
-    const question = dataQuizClone.find(
-      (item) => +item.questionId === +questionId
+    const updatedQuizData = _.cloneDeep(dataQuiz);
+    const question = updatedQuizData.find(
+      (item) => Number(item.questionId) === Number(questionId)
     );
 
     if (question) {
@@ -96,8 +103,7 @@ const DetailQuiz = () => {
           ? { ...answer, isSelected: !answer.isSelected }
           : answer
       );
-
-      setDataQuiz(dataQuizClone);
+      setDataQuiz(updatedQuizData);
     }
   };
 
@@ -109,17 +115,27 @@ const DetailQuiz = () => {
         </div>
         <hr />
         <div className="q-content">
-          <Question
-            index={index}
-            handleCheckBox={handleCheckBox}
-            data={dataQuiz.length > 0 ? dataQuiz[index] : {}}
-          />
+          {dataQuiz.length > 0 && (
+            <Question
+              index={currentIndex}
+              handleCheckBox={handleCheckBox}
+              data={dataQuiz[currentIndex]}
+            />
+          )}
         </div>
         <div className="footer">
-          <button className="btn btn-secondary" onClick={handlePrev}>
+          <button
+            className="btn btn-secondary"
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+          >
             Prev
           </button>
-          <button className="btn btn-primary" onClick={handleNext}>
+          <button
+            className="btn btn-primary"
+            onClick={handleNext}
+            disabled={currentIndex === dataQuiz.length - 1}
+          >
             Next
           </button>
           <button className="btn btn-warning" onClick={handleFinishQuiz}>
@@ -131,7 +147,7 @@ const DetailQuiz = () => {
         <RightContent
           dataQuiz={dataQuiz}
           handleFinishQuiz={handleFinishQuiz}
-          setIndex={setIndex}
+          setIndex={setCurrentIndex}
         />
       </div>
       <ModalResult
