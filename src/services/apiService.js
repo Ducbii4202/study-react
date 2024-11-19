@@ -32,23 +32,23 @@ const getUserWithPaginate = (page, limit) => {
   return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 };
 const postLogin = (email, password) => {
-  return axios.post(`/api/v1/login`, { email, password, delay: 5000 });
+  return axios.post(`api/v1/login`, { email, password, delay: 5000 });
 };
 
 const postRegister = (email, usename, password) => {
-  return axios.post(`/api/v1/register`, { email, usename, password });
+  return axios.post(`api/v1/register`, { email, usename, password });
 };
 
 const getQuizByUSer = () => {
-  return axios.get("/api/v1/quiz-by-participant");
+  return axios.get("api/v1/quiz-by-participant");
 };
 
 const getDataQuiz = (id) => {
-  return axios.get(`/api/v1/questions-by-quiz?quizId=${id}`);
+  return axios.get(`api/v1/questions-by-quiz?quizId=${id}`);
 };
 
 const postSubmitQuiz = (data) => {
-  return axios.post(`/api/v1/quiz-submit`, { ...data });
+  return axios.post(`api/v1/quiz-submit`, { ...data });
 };
 
 const postCreateNewQuiz = (description, name, difficulty, image) => {
@@ -61,7 +61,7 @@ const postCreateNewQuiz = (description, name, difficulty, image) => {
 };
 
 const getAllQuizForAdmin = () => {
-  return axios.get(`/api/v1/quiz/all`);
+  return axios.get(`api/v1/quiz/all`);
 };
 const putUpdateQuizForAdmin = (id, name, description, difficulty, image) => {
   const data = new FormData();
@@ -74,7 +74,7 @@ const putUpdateQuizForAdmin = (id, name, description, difficulty, image) => {
 };
 
 const deleteQuizForAdmin = (id) => {
-  return axios.delete(`/api/v1/quiz/${id}`);
+  return axios.delete(`api/v1/quiz/${id}`);
 };
 
 const postCreateNewQuestionForQuiz = (quiz_id, description, questionImage) => {
@@ -109,16 +109,20 @@ const getQuizWithQA = (quizId) => {
 };
 
 const postUpsertQA = (data) => {
-  return axios.post("/api/v1/quiz-upsert-qa", {
+  return axios.post("api/v1/quiz-upsert-qa", {
     ...data,
   });
 };
 
 const postLogout = (email, refresh_token) => {
-  return axios.post("/api/v1/logout", {
+  return axios.post("api/v1/logout", {
     email,
     refresh_token,
   });
+};
+
+const getOverview = () => {
+  return axios.get(`api/v1/overview`);
 };
 export {
   postCreateNewUser,
@@ -141,4 +145,5 @@ export {
   getQuizWithQA,
   postUpsertQA,
   postLogout,
+  getOverview,
 };
