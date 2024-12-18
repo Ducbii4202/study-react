@@ -3,7 +3,9 @@
             "title1": "There is a better way to ask",
             "title2": "You don't want to make a boring form.",
             "title3": {
-                "login": "Get's started. It's free"
+                "login": "Get's started. It's free",
+                "doing": "Start quiz now."
+
             }
 
         }

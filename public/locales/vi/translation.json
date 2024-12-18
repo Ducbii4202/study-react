@@ -1,9 +1,10 @@
 {
         "homepage":{
-            "title1": "Có rất nhiều cái đẻ hỏi...",
-            "title2": "Không biết thì g",
+            "title1": "Có rất nhiều cái để hỏi...",
+            "title2": "và Cách dễ nhất là thử làm bài quiz...",
             "title3": {
-                "login": "Get's started. It's free"
+                "login": "Bắt đầu làm bài quiz. Hoàn toàn miễn phí",
+                "doing": "Làm bài quiz ngay"
             }
 
         }

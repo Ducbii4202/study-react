@@ -11,18 +11,41 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <video autoPlay loop muted>
+      <video
+        className="homepage-video"
+        autoPlay
+        loop
+        muted
+        aria-label={t("homepage.videoAlt", "Background video")}
+      >
         <source src={videoHomepage} type="video/mp4" />
+        {t(
+          "homepage.videoFallback",
+          "Your browser does not support video playback."
+        )}
       </video>
+
       <div className="homepage-content">
-        <div className="title-1">{t("homepage.title1")}</div>
-        <div className="title-2">{t("homepage.title2")}</div>
-        <div className="title-3">
+        <h1 className="homepage-title title-1">
+          {t("homepage.title1", "Welcome to our platform!")}
+        </h1>
+        <h2 className="homepage-title title-2">
+          {t("homepage.title2", "Explore and enjoy.")}
+        </h2>
+        <div className="homepage-actions title-3">
           {isAuthenticated ? (
-            <button onClick={() => navigate("./users")}>Doing Quiz Now</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/users")}
+            >
+              {t("homepage.title3.doing", "Start Doing")}
+            </button>
           ) : (
-            <button onClick={() => navigate("./login")}>
-              {t("homepage.title3.login")}
+            <button
+              className="btn btn-secondary"
+              onClick={() => navigate("/login")}
+            >
+              {t("homepage.title3.login", "Login")}
             </button>
           )}
         </div>
